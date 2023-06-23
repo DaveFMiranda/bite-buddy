@@ -1,27 +1,30 @@
 // Make sure models, constants, and stuff you're including match the relationships you set up among the models
 
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Bite, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
+    // Get all bites and JOIN with user and comment data
+    const biteData = await Bite.findAll({
       include: [
         {
           model: User,
           attributes: ['name'],
         },
+          {model: Comment,
+          attributes: ['content'],
+        },
       ],
     });
 
     // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
+    const bites = biteData.map((bite) => bite.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      projects, 
+      bites, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
@@ -29,21 +32,25 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/project/:id', async (req, res) => {
+router.get('/bite/:id', async (req, res) => {
   try {
-    const projectData = await Project.findByPk(req.params.id, {
+    const biteData = await Bite.findByPk(req.params.id, {
       include: [
         {
           model: User,
           attributes: ['name'],
+          
+        },
+        {model: Comment,
+          attributes: ['content'],
         },
       ],
     });
 
-    const project = projectData.get({ plain: true });
+    const bite = biteData.get({ plain: true });
 
-    res.render('project', {
-      ...project,
+    res.render('bite', {
+      ...bite,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -57,7 +64,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Bite, include: [Comment]  }],
     });
 
     const user = userData.get({ plain: true });
