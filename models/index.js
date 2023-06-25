@@ -2,7 +2,7 @@
 
 const User = require('./User');
 const Bite = require('./Bite');
-const Comment = require('/Comment');
+const Comment = require('./Comment');
 
 User.hasMany(Bite, {
   foreignKey: 'user_id',

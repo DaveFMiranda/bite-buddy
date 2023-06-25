@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/bite/:id', async (req, res) => {
+router.get('/bites/:id', async (req, res) => {
   try {
     const biteData = await Bite.findByPk(req.params.id, {
       include: [
