@@ -42,7 +42,7 @@ router.get('/bites/:id', async (req, res) => {
           
         },
         {model: Comment,
-          attributes: ['content'],
+          attributes: ['id', 'content'],
         },
       ],
     });

@@ -5,23 +5,21 @@ console.log(biteId);
 const biteDeleteId = document.querySelector('#bite-delete');
 const biteDelete = biteDeleteId.getAttribute('data-id');
 console.log(biteDelete);
-// const commentId = document.querySelector('.comment-list');
-// const commentDelete = commentId.getAttribute('data-id');
-// console.log(commentDelete);
+const commentId = document.querySelector('#comment-delete');
 
 
 const newFormHandler = async (event) => {
   event.preventDefault();
   // TO DO: update querySelectors to match names in the views. Also remove "needed funding"
   // const needed_funding = document.querySelector('#project-funding').value.trim();
-  const content = document.querySelector('.new-comment-form').value.trim();
+  const content = document.querySelector('#comment-content').value.trim();
   console.log(content);
 
   // Make sure the fetch route is accurate and make sure the fields after body: below match the model you're trying to update
   if (content) {
     const response = await fetch(`/api/comments`, {
       method: 'POST',
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content, biteId }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -29,7 +27,7 @@ const newFormHandler = async (event) => {
 console.log(content, biteId);
     // Update alert below
     if (response.ok) {
-      document.location.replace(`/profile`);
+      document.location.replace(`/bites/${biteId}`);
       console.log(biteId);
     } else {
       alert('Failed to create comment');
@@ -49,7 +47,7 @@ console.log(biteDelete);
 
     if (response.ok) {
       // Change this to redirect to /profile
-      document.location.replace(`/bites/${biteDelete}`);
+      document.location.replace(`/profile`);
     } else {
       alert('Failed to delete bite entry');
     }
@@ -57,15 +55,13 @@ console.log(biteDelete);
 };
 
 const delButtonHandler2 = async (event) => {
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
-
+    const commentId = event.target.getAttribute('data-id');
+console.log(commentId);
     // TO DO: make sure the route below is correct
-    const response = await fetch(`/api/comments/${id}`, {
+    const response = await fetch(`/api/comments/${commentId}`, {
       method: 'DELETE',
     });
 
-console.log(id);
 
 
 
@@ -75,18 +71,20 @@ console.log(id);
     } else {
       alert('Failed to delete comment');
     }
-  }
+  
 };
 
 // TO DO: make sure querySelectors match handlebars docs
 document
-  .querySelector('#comment-submit')
+  .querySelector('.new-comment-form')
   .addEventListener('submit', newFormHandler);
 
 document
   .querySelector('#bite-delete')
   .addEventListener('click', delButtonHandler);
 
-  document
-  .querySelector('.comment-list')
-  .addEventListener('click', delButtonHandler2);
+  const commentDeleteButton = document.querySelector('#comment-delete');
+  if (commentDeleteButton && typeof delButtonHandler2 === 'function') {
+    commentDeleteButton.addEventListener('click', delButtonHandler2);
+  };
+  
