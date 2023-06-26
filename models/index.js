@@ -1,15 +1,34 @@
 // Make sure these match the names of the models, add relationships below as needed
 
 const User = require('./User');
-const Project = require('./Project');
+const Bite = require('./Bite');
+const Comment = require('./Comment');
 
-User.hasMany(Project, {
+User.hasMany(Bite, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE'
 });
 
-Project.belongsTo(User, {
+User.hasMany(Comment, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE'
+})
+
+Bite.belongsTo(User, {
   foreignKey: 'user_id'
 });
 
-module.exports = { User, Project };
+Bite.hasMany(Comment, {
+  foreignKey: 'bite_id',
+  onDelete: 'CASCADE'
+});
+
+Comment.belongsTo(Bite, {
+  foreignKey: 'bite_id'
+});
+
+Comment.belongsTo(User, {
+  foreignKey: 'user_id'
+})
+
+module.exports = { User, Bite, Comment };

@@ -1,25 +1,25 @@
 {{!-- TO DO: UPDATE array names, remove emojis, update href, basically all the variables in double squigglies need to match the information in the DB tables --}}
 
 <!-- Loop over each object in the projects array -->
-{{#each projects as |project| }}
-<div class="row mb-4 project">
+{{#each bites as |bite| }}
+<div class="row mb-4 bite">
   <div class="col-md-5">
     <h2>
       <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-      {{{get_emoji}}}
-      <a href="/project/{{project.id}}">{{project.name}}</a>
+      {{!--  DO WE WANT AN EMOJI HERE? {{{get_emoji}}} --}}
+      <a href="/bites/{{bite.id}}">{{bite.headline}}</a>
     </h2>
     <p>
-      <span for="img" aria-label="money">💲</span>
+      {{!-- Do we want an emoji here? <span for="img" aria-label="money">💲</span> --}}
       <!-- Pass needed_funding value to the helper function -->
-      <span class="dollar-amount">{{format_amount project.needed_funding}}</span>
-      needed!
+      {{!-- <span class="dollar-amount">{{format_amount project.needed_funding}}</span>
+      needed! --}}
     </p>
-    <p>Created by {{project.user.name}} on {{format_date project.date_created}}</p>
+    <p>Created by {{bite.user.name}} on {{format_date bite.date_created}}</p>
   </div>
   <div class="col-md-7">
     <p>
-      {{project.description}}
+      {{bite.content}}
     </p>
   </div>
 </div>
