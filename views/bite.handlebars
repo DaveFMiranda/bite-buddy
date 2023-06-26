@@ -30,6 +30,8 @@
     <div class="row mb-2">
       <div class="col-md-8">
         <p>{{comment.content}}</p>
+          <p>Created by {{user.name}} on {{format_date date_created}}</p>
+
       </div>
       <div class="col-md-4">
         <button class="btn btn-sm btn-danger" id="comment-delete" data-id="{{comment.id}}">DELETE THIS COMMENT</button>

@@ -12,7 +12,7 @@ User.hasMany(Bite, {
 User.hasMany(Comment, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE'
-})
+});
 
 Bite.belongsTo(User, {
   foreignKey: 'user_id'
