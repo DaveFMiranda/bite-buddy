@@ -38,4 +38,26 @@ router.delete('/:id', withAuth, async (req, res) => {
   }
 });
 
+// editcomment
+router.post('/:id', withAuth, async (req, res) => {
+  try {
+    const editComments = await Comment.update({
+      ...req.body,
+      user_id: req.session.user_id,},
+      {where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+  
+      },
+  
+    });
+    res.status(200).json(editComments);
+  
+  }
+  
+  catch (err) {
+    res.status(400).json(err);
+  }
+  });
+
 module.exports = router;

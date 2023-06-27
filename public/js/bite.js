@@ -10,6 +10,7 @@ const biteDeleteId = document.querySelector('#bite-delete');
 const biteDelete = biteDeleteId.getAttribute('data-id');
 console.log(biteDelete);
 const commentId = document.querySelector('#comment-delete');
+const commentEditID = commentID.getAttribute('data-id');
 
 const newFormHandler = async (event) => {
   event.preventDefault();
@@ -82,6 +83,50 @@ console.log(content);
   }
 };
 };
+const editcommentButtonHandler = async (event) => {
+  event.preventDefault();
+  // TO DO: make sure the route below is correct
+  
+  
+  const oldContent = document.querySelector('#ebite-content');
+  const newContent = document.querySelector('#ebite-update');
+oldContent.style.display = 'none';
+newContent.style.display = 'block';
+newContent.focus();
+  console.log(newContent);
+
+  const submitEditButton = document.querySelector('#eedit-submit');
+  submitEditButton.style.display = 'block';
+  submitEditButton.addEventListener('click', editCommentSubmission);
+};
+
+const editCommentSubmission = async (event) => {
+  event.preventDefault();
+  const newContent = document.querySelector('#ebite-update').value.trim();
+  console.log(newContent);
+
+if (newContent) {
+
+let content = newContent;
+console.log(content);
+  const response = await fetch(`/api/comments/${commentEditID}`, {
+    method: 'POST',
+    body: JSON.stringify({ content }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+  });
+
+  console.log(commentEditID);
+
+  if (response.ok) {
+    // Change this to redirect to /profile
+    document.location.replace(`/bites/${biteEdit}`);
+  } else {
+    alert('Failed to update comment entry');
+  }
+};
+};
 
 
 const delButtonHandler = async (event) => {
@@ -115,6 +160,7 @@ const delButtonHandler2 = async (event) => {
     alert('Failed to delete comment');
   }
 };
+
 
 // TO DO: make sure querySelectors match handlebars docs
 document
