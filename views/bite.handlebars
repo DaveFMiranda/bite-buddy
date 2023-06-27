@@ -2,7 +2,7 @@
 <div class="text-center">
   <h2>{{headline}}</h2>
   {{!-- <p>{{{get_emoji}}}</p> --}}
-  <p>{{content}}</p>
+  <p id="bite-content">{{content}}</p>
 
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
 
@@ -10,10 +10,14 @@
   <div class="col-md-6 bite-list">
     <div class="row mb-2">
       <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" id="bite-delete" data-id="{{id}}">DELETE THIS BITE</button>
+        <button class="btn btn-sm btn-danger" id="bite-edit" data-id="{{id}}">EDIT THIS BITE</button>
+          <input type="text" class="edit-input" id="bite-update" style="display: none;">
+          <button class="btn btn-sm btn-danger" id="edit-submit" style="display: none;">Submit Edit</button>
+                <button class="btn btn-sm btn-danger" id="bite-delete" data-id="{{id}}">DELETE THIS BITE</button>
+
       </div>
     </div>
- 
+ </div>
 
 
   {{!-- <p>
@@ -55,6 +59,6 @@
       </div>
     </form>
   </div>  </p>
-</div>
+
 
 <script src="/js/bite.js"></script>
