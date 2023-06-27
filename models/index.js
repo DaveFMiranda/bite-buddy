@@ -3,6 +3,7 @@
 const User = require('./User');
 const Bite = require('./Bite');
 const Comment = require('./Comment');
+const Photo = require('./Photo');
 
 User.hasMany(Bite, {
   foreignKey: 'user_id',
@@ -29,6 +30,24 @@ Comment.belongsTo(Bite, {
 
 Comment.belongsTo(User, {
   foreignKey: 'user_id'
-})
+});
+
+Photo.belongsTo(Bite, {
+  foreignKey: 'bite_id'
+});
+
+Photo.belongsTo(User, {
+  foreignKey: 'user_id'
+});
+
+Bite.hasMany(Photo, {
+  foreignKey: 'bite_id',
+  onDelete: 'CASCADE'
+});
+
+
+
+
+
 
 module.exports = { User, Bite, Comment };
