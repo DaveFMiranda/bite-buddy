@@ -15,6 +15,11 @@ User.hasMany(Comment, {
   onDelete: 'CASCADE'
 });
 
+User.hasMany(Photo, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE'
+});
+
 Bite.belongsTo(User, {
   foreignKey: 'user_id'
 });
@@ -50,4 +55,4 @@ Bite.hasMany(Photo, {
 
 
 
-module.exports = { User, Bite, Comment };
+module.exports = { User, Bite, Comment, Photo };
