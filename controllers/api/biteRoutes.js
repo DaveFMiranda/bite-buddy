@@ -21,8 +21,8 @@ router.post('/:id', withAuth, async (req, res) => {
 try {
   const updateBite = await Bite.update({
     ...req.body,
-    user_id: req.session.user_id,
-    where: {
+    user_id: req.session.user_id,},
+    {where: {
       id: req.params.id,
       user_id: req.session.user_id,
 

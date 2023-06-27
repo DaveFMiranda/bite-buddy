@@ -43,13 +43,12 @@ const editButtonHandler = async (event) => {
   // TO DO: make sure the route below is correct
   
   
-  const content = document.querySelector('#bite-content');
-  const input = document.querySelector('#bite-update');
-content.style.display = 'none';
-input.style.display = 'block';
-input.focus();
-  console.log(content);
-  console.log(input);
+  const oldContent = document.querySelector('#bite-content');
+  const newContent = document.querySelector('#bite-update');
+oldContent.style.display = 'none';
+newContent.style.display = 'block';
+newContent.focus();
+  console.log(newContent);
 
   const submitEditButton = document.querySelector('#edit-submit');
   submitEditButton.style.display = 'block';
@@ -58,14 +57,16 @@ input.focus();
 
 const editContentSubmission = async (event) => {
   event.preventDefault();
-  const input = document.querySelector('#bite-update').value.trim();
+  const newContent = document.querySelector('#bite-update').value.trim();
+  console.log(newContent);
 
-if (input) {
+if (newContent) {
 
-
+let content = newContent;
+console.log(content);
   const response = await fetch(`/api/bites/${biteEdit}`, {
     method: 'POST',
-    body: JSON.stringify({ input }),
+    body: JSON.stringify({ content }),
       headers: {
         'Content-Type': 'application/json',
       },
