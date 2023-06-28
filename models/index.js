@@ -29,6 +29,11 @@ Bite.hasMany(Comment, {
   onDelete: 'CASCADE'
 });
 
+Bite.hasMany(Photo, {
+  foreignKey: 'bite_id',
+  onDelete: 'CASCADE'
+});
+
 Comment.belongsTo(Bite, {
   foreignKey: 'bite_id'
 });
@@ -45,10 +50,7 @@ Photo.belongsTo(User, {
   foreignKey: 'user_id'
 });
 
-Bite.hasMany(Photo, {
-  foreignKey: 'bite_id',
-  onDelete: 'CASCADE'
-});
+
 
 
 

@@ -41,6 +41,8 @@ const delButtonHandler = async (event) => {
     const response = await fetch(`/api/bites/${id}`, {
       method: 'DELETE',
     });
+    
+    
 
 console.log(id);
 

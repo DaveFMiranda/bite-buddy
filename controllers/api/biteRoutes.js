@@ -9,22 +9,29 @@ router.post('/', withAuth, async (req, res) => {
       user_id: req.session.user_id,
     });
 
+    const newPhoto = await Photo.create({
+      ...req.body,
+      bite_id: newBite.id,
+      user_id: req.session.user_id,
+    });
+
     res.status(200).json(newBite);
   } catch (err) {
     res.status(400).json(err);
-  }
-  try {
-    const newPhoto = await Photo.create({
-    ...req.body,
-    bite_id: req.body.biteId,
-    user_id: req.session.user_id,
-    }); 
 
-    res.status(200).json(newPhoto);
-} catch (err) {
-    res.status(400).json(err);
-}
-});
+//   }
+//   try {
+//     const newPhoto = await Photo.create({
+//     ...req.body,
+//     bite_id: req.body.biteId,
+//     user_id: req.session.user_id,
+//     }); 
+
+//     res.status(200).json(newPhoto);
+// } catch (err) {
+//     res.status(400).json(err);
+// }
+  }});
 
 // add logic here for photo upload
 
