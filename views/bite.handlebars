@@ -26,7 +26,9 @@
     needed
   </p> --}}
    <p>
-
+{{#if image_url}}
+    <img src="{{image_url}}" alt="Bite Image">
+  {{/if}}
      {{#if comments.length}}
   <div class="col-md-6 comment-list">
     <h3>Comments</h3>

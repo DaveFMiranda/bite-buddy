@@ -11,6 +11,11 @@ const biteDelete = biteDeleteId.getAttribute('data-id');
 console.log(biteDelete);
 const commentId = document.querySelector('#comment-delete');
 
+
+
+
+
+
 const newFormHandler = async (event) => {
   event.preventDefault();
   // TO DO: update querySelectors to match names in the views. Also remove "needed funding"
@@ -115,6 +120,15 @@ const delButtonHandler2 = async (event) => {
     alert('Failed to delete comment');
   }
 };
+
+// const image_url = "{{image_url}}";
+
+// if (image_url) {
+//   const image = document.querySelector('#bite-image');
+//   image.style.display = 'block';
+//   image.src = image_url;
+// }
+
 
 // TO DO: make sure querySelectors match handlebars docs
 document
