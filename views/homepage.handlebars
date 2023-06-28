@@ -1,26 +1,28 @@
-{{!-- TO DO: UPDATE array names, remove emojis, update href, basically all the variables in double squigglies need to match the information in the DB tables --}}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Homepage</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
 
-<!-- Loop over each object in the projects array -->
-{{#each bites as |bite| }}
-<div class="row mb-4 bite">
-  <div class="col-md-5">
-    <h2>
-      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-      {{!--  DO WE WANT AN EMOJI HERE? {{{get_emoji}}} --}}
-      <a href="/bites/{{bite.id}}">{{bite.headline}}</a>
-    </h2>
-    <p>
-      {{!-- Do we want an emoji here? <span for="img" aria-label="money">💲</span> --}}
-      <!-- Pass needed_funding value to the helper function -->
-      {{!-- <span class="dollar-amount">{{format_amount project.needed_funding}}</span>
-      needed! --}}
-    </p>
-    <p>Created by {{bite.user.name}} on {{format_date bite.date_created}}</p>
+<div class="container mx-auto p-8">
+  <h1 class="text-4xl font-bold text-center mb-8">Welcome to Buddy Bite</h1>
+
+  {{!-- Loop over each object in the bites array --}}
+  {{#each bites as |bite| }}
+  <div class="bg-white rounded-lg shadow-lg mb-8">
+    <div class="p-8">
+      <h2 class="text-2xl font-bold mb-4">
+        <a href="/bites/{{bite.id}}" class="text-indigo-500 hover:underline">{{bite.headline}}</a>
+      </h2>
+      <p class="text-gray-500 mb-4">Created by {{bite.user.name}} on {{format_date bite.date_created}}</p>
+      <p class="text-gray-800">{{bite.content}}</p>
+    </div>
   </div>
-  <div class="col-md-7">
-    <p>
-      {{bite.content}}
-    </p>
-  </div>
+  {{/each}}
 </div>
-{{/each}}
+
+</body>
+</html>
