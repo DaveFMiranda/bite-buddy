@@ -42,6 +42,8 @@ Comment.belongsTo(User, {
   foreignKey: 'user_id'
 });
 
+
+
 Photo.belongsTo(Bite, {
   foreignKey: 'bite_id'
 });
@@ -49,6 +51,8 @@ Photo.belongsTo(Bite, {
 Photo.belongsTo(User, {
   foreignKey: 'user_id'
 });
+
+
 
 
 

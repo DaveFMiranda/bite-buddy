@@ -12,6 +12,9 @@ console.log(biteDelete);
 // const commentId = document.querySelector('#ebite-edit');
 // const commentEditID = commentId.getAttribute('data-id');
 
+const photoId = document.querySelector('#photo-delete');
+const photoDelete = photoId.getAttribute('data-id');
+
 
 
 
@@ -170,6 +173,20 @@ const delButtonHandler2 = async (event) => {
   }
 };
 
+const photoDeleteButton = async (event) => {
+  const photoDelete = event.target.getAttribute('data-id');
+  console.log(photoDelete);
+  const response = await fetch(`/api/photos/${photoDelete}`, {
+    method: 'DELETE',
+  });
+
+  if (response.ok) {
+    document.location.replace(`/bites/${biteDelete}`);
+  } else {
+    alert('Failed to delete photo');
+  }
+};
+
 // const image_url = "{{image_url}}";
 
 // if (image_url) {
@@ -192,6 +209,7 @@ document
   .querySelector('#bite-delete')
   .addEventListener('click', delButtonHandler);
 
+
 const commentEditButtons = document.querySelectorAll('.edit-buttons');
 if (commentEditButtons) {
   commentEditButtons.forEach((commentEditButton) => {
@@ -204,4 +222,10 @@ if (commentDeleteButtons) {
   commentDeleteButtons.forEach((commentDeleteButton) => {
     commentDeleteButton.addEventListener('click', delButtonHandler2);
   });
+}
+// function for photo delete button
+if (document.querySelector('#photo-delete')) {
+  document
+    .querySelector('#photo-delete')
+    .addEventListener('click', photoDeleteButton);
 }

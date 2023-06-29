@@ -50,7 +50,7 @@ router.get('/bites/:id', async (req, res) => {
           },
         },
         {model: Photo,
-          attributes: ['image_url'],
+          attributes: ['id','image_url' ],
           include: {
             model: User,
             attributes: ['name']
