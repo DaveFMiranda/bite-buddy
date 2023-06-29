@@ -9,7 +9,8 @@ console.log(biteEdit);
 const biteDeleteId = document.querySelector('#bite-delete');
 const biteDelete = biteDeleteId.getAttribute('data-id');
 console.log(biteDelete);
-const commentId = document.querySelector('#comment-delete');
+// const commentId = document.querySelector('#ebite-edit');
+// const commentEditID = commentId.getAttribute('data-id');
 
 
 
@@ -46,13 +47,12 @@ const newFormHandler = async (event) => {
 const editButtonHandler = async (event) => {
   event.preventDefault();
   // TO DO: make sure the route below is correct
-  
-  
+
   const oldContent = document.querySelector('#bite-content');
   const newContent = document.querySelector('#bite-update');
-oldContent.style.display = 'none';
-newContent.style.display = 'block';
-newContent.focus();
+  oldContent.style.display = 'none';
+  newContent.style.display = 'block';
+  newContent.focus();
   console.log(newContent);
 
   const submitEditButton = document.querySelector('#edit-submit');
@@ -65,29 +65,80 @@ const editContentSubmission = async (event) => {
   const newContent = document.querySelector('#bite-update').value.trim();
   console.log(newContent);
 
-if (newContent) {
-
-let content = newContent;
-console.log(content);
-  const response = await fetch(`/api/bites/${biteEdit}`, {
-    method: 'POST',
-    body: JSON.stringify({ content }),
+  if (newContent) {
+    let content = newContent;
+    console.log(content);
+    const response = await fetch(`/api/bites/${biteEdit}`, {
+      method: 'POST',
+      body: JSON.stringify({ content }),
       headers: {
         'Content-Type': 'application/json',
       },
-  });
+    });
 
-  console.log(biteEdit);
+    console.log(biteEdit);
 
-  if (response.ok) {
-    // Change this to redirect to /profile
-    document.location.replace(`/bites/${biteEdit}`);
-  } else {
-    alert('Failed to edit bite entry');
+    if (response.ok) {
+      // Change this to redirect to /profile
+      document.location.replace(`/bites/${biteEdit}`);
+    } else {
+      alert('Failed to edit bite entry');
+    }
   }
 };
+const editcommentButtonHandler = async (event) => {
+  event.preventDefault();
+  const commentEditId = event.target.getAttribute('data-id');
+// commentEditId is the number of the comment here
+console.log(commentEditId);
+
+
+
+
+
+  const oldContent = document.querySelector(`[data-id="${commentEditId}"]#ebite-content`);
+  const newContent = document.querySelector(`[data-id="${commentEditId}"]#ebite-update`);
+  oldContent.style.display = 'none';
+  newContent.style.display = 'block';
+  newContent.focus();
+  console.log(newContent);
+
+  const submitEditButton = document.querySelector(`[data-id="${commentEditId}"]#eedit-submit`);
+  submitEditButton.style.display = 'block';
+  // Add data-id to editsubmit button here.
+  submitEditButton.addEventListener('click', editCommentSubmission);
 };
 
+const editCommentSubmission = async (event) => {
+  const button = event.target;
+  const commentEditID = button.getAttribute('data-id');
+
+  event.preventDefault();
+  const newContent = document.querySelector(`[data-id="${commentEditID}"]#ebite-update`).value.trim();
+  console.log(newContent);
+
+  if (newContent) {
+    let content = newContent;
+    console.log(content);
+
+    const response = await fetch(`/api/comments/${commentEditID}`, {
+      method: 'POST',
+      body: JSON.stringify({ content }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log(commentEditID);
+
+    if (response.ok) {
+      // Change this to redirect to /profile
+      document.location.replace(`/bites/${biteEdit}`);
+    } else {
+      alert('Failed to update comment entry');
+    }
+  }
+};
 
 const delButtonHandler = async (event) => {
   // TO DO: make sure the route below is correct
@@ -108,12 +159,10 @@ const delButtonHandler = async (event) => {
 const delButtonHandler2 = async (event) => {
   const commentId = event.target.getAttribute('data-id');
   console.log(commentId);
-  // TO DO: make sure the route below is correct
   const response = await fetch(`/api/comments/${commentId}`, {
     method: 'DELETE',
   });
 
-  // TO DO: update alert
   if (response.ok) {
     document.location.replace(`/bites/${biteDelete}`);
   } else {
@@ -135,17 +184,22 @@ document
   .querySelector('.new-comment-form')
   .addEventListener('submit', newFormHandler);
 
-
 document
   .querySelector('#bite-edit')
   .addEventListener('click', editButtonHandler);
-
 
 document
   .querySelector('#bite-delete')
   .addEventListener('click', delButtonHandler);
 
-const commentDeleteButtons = document.querySelectorAll('.comment-list');
+const commentEditButtons = document.querySelectorAll('.edit-buttons');
+if (commentEditButtons) {
+  commentEditButtons.forEach((commentEditButton) => {
+    commentEditButton.addEventListener('click', editcommentButtonHandler);
+  });
+}
+
+const commentDeleteButtons = document.querySelectorAll('.delete-buttons');
 if (commentDeleteButtons) {
   commentDeleteButtons.forEach((commentDeleteButton) => {
     commentDeleteButton.addEventListener('click', delButtonHandler2);
