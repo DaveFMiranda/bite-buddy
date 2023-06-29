@@ -15,11 +15,21 @@
         <label for="bite-headline">What do you want to ask about your bite?</label>
         <input class="form-input" type="text" id="bite-headline" name="bite-headline" />
       </div>
+
+{{!-- Code for using an input box for a link instead of the file uploader --}}
     {{!-- //add for group for image_url: --}}
       <div class="form-group">
         <label for="bite-image_url">Please provide an image URL for your bite:</label>
         <input class="form-input" type="text" id="bite-image_url" name="bite-image_url" />
-  
+  </div>
+
+{{!-- Code for using multer file uploader on the front end
+  <form action="/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" />
+  <button type="submit">Upload</button>
+</form> --}}
+
+
       {{!-- <div class="form-group">
         <label for="project-funding">needed funding ($):</label>
         <input class="form-input" type="number" id="project-funding" name="project-funding" />
