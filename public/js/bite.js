@@ -11,6 +11,9 @@ const biteDelete = biteDeleteId.getAttribute('data-id');
 console.log(biteDelete);
 const commentId = document.querySelector('#comment-delete');
 
+const photoId = document.querySelector('#photo-delete');
+const photoDelete = photoId.getAttribute('data-id');
+
 
 
 
@@ -122,9 +125,9 @@ const delButtonHandler2 = async (event) => {
 };
 
 const photoDeleteButton = async (event) => {
-  const photoId = event.target.getAttribute('data-id');
-  console.log(photoId);
-  const response = await fetch(`/api/photos/${photoId}`, {
+  const photoDelete = event.target.getAttribute('data-id');
+  console.log(photoDelete);
+  const response = await fetch(`/api/photos/${photoDelete}`, {
     method: 'DELETE',
   });
 
@@ -159,9 +162,6 @@ document
   .querySelector('#bite-delete')
   .addEventListener('click', delButtonHandler);
 
-document
-  .querySelector('#photo-delete')
-  .addEventListener('click', photoDeleteButton);
    
 
 const commentDeleteButtons = document.querySelectorAll('.comment-list');
