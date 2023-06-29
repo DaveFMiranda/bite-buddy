@@ -26,7 +26,7 @@
     needed
   </p> --}}
    
-{{!-- CHRIS: because image_url is value in the photo table, this needs to refer to the value in the bite table. We're sending photo with bite, but "image_url" below will be looking for bite.image_url. Instead, we need to use photo.image_url below, which will direct the code to look for bite.photo.image_url. Sort of like how on line 7 we have user.name, which pulls the name value from the user table associated with the bite we're rendering. --}}
+
 
 {{!-- CHRIS: we're going to need to change this at some point so it can display multiple phots for one bite. To do that, we'll have to have it loop through an array of photos sort of like it does for comments further down (#each comments as |comment|). UPDATE: because bite hasMany photos, we need to do this anyway. Right now, the server is sending back a photos array which is why photos.image_url doesn't display.  --}}
 {{#if photos.length}}
@@ -47,21 +47,28 @@
 
   {{/if}}
      {{#if comments.length}}
+     
   <div class="col-md-6 comment-list">
     <h3>Comments</h3>
 {{#each comments as |comment|}}
     <div class="row mb-2">
       <div class="col-md-8">
-        <p>{{comment.content}}</p>
+        <p id="ebite-content" data-id="{{comment.id}}">{{comment.content}}</p>
           <p>Created by {{user.name}} on {{format_date date_created}}</p>
 
       </div>
-      <div class="col-md-4">
+       <div class="col-md-4 edit-buttons">
+        <button class="btn btn-sm btn-danger" id="ebite-edit" data-id="{{comment.id}}">EDIT COMMENT</button>
+          <input type="text" class="edit-input" id="ebite-update" data-id="{{comment.id}}" style="display: none;">
+          <button class="btn btn-sm btn-danger" id="eedit-submit" data-id="{{comment.id}}" style="display: none;">Submit edit</button>
+          </div>
+      <div class="col-md-4 delete-buttons">
         <button class="btn btn-sm btn-danger" id="comment-delete" data-id="{{comment.id}}">DELETE THIS COMMENT</button>
       </div>
-    </div>
+    
     {{/each}}
 {{/if}}
+</div>
 </div>
 
 <div class="row mt-4">
@@ -78,6 +85,7 @@
       </div>
     </form>
   </div>
+
 
 
 <script src="/js/bite.js"></script>
