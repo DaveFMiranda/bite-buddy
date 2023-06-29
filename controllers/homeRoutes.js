@@ -1,7 +1,7 @@
 // Make sure models, constants, and stuff you're including match the relationships you set up among the models
 
 const router = require('express').Router();
-const { Bite, User, Comment } = require('../models');
+const { Bite, User, Comment, Photo } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -32,6 +32,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// CHRIS: added the photo table data we need into this GET command so that when the user goes to bites/id, the GET sends the photo data associated with that bite.
 router.get('/bites/:id', async (req, res) => {
   try {
     const biteData = await Bite.findByPk(req.params.id, {
@@ -48,14 +49,23 @@ router.get('/bites/:id', async (req, res) => {
             attributes: ['name']
           },
         },
+        {model: Photo,
+          attributes: ['image_url'],
+          include: {
+            model: User,
+            attributes: ['name']
+          },
+        },
+
       ],
     });
 
     const bite = biteData.get({ plain: true });
-
+    console.log(bite);
     res.render('bite', {
       ...bite,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+    
     });
   } catch (err) {
     res.status(500).json(err);

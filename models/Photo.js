@@ -12,7 +12,7 @@ Photo.init(
             autoIncrement: true,
             },
         image_url: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
             },
         date_created: {

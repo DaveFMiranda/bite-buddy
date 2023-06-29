@@ -25,9 +25,26 @@
     <span class="dollar-amount">{{format_amount needed_funding}}</span>
     needed
   </p> --}}
-   <p>
-{{#if image_url}}
-    <img src="{{image_url}}" alt="Bite Image">
+   
+{{!-- CHRIS: because image_url is value in the photo table, this needs to refer to the value in the bite table. We're sending photo with bite, but "image_url" below will be looking for bite.image_url. Instead, we need to use photo.image_url below, which will direct the code to look for bite.photo.image_url. Sort of like how on line 7 we have user.name, which pulls the name value from the user table associated with the bite we're rendering. --}}
+
+{{!-- CHRIS: we're going to need to change this at some point so it can display multiple phots for one bite. To do that, we'll have to have it loop through an array of photos sort of like it does for comments further down (#each comments as |comment|). UPDATE: because bite hasMany photos, we need to do this anyway. Right now, the server is sending back a photos array which is why photos.image_url doesn't display.  --}}
+{{#if photos.length}}
+    <div class="col-md-6 photo-list">
+    <h3>Photos</h3>
+{{#each photos as |photo|}}
+    <div class="row mb-2">
+          <img src="{{photo.image_url}}" alt="Bite Image">
+
+      <div class="col-md-4">
+        {{!-- CHRIS TO DO: add an event handler at the bottom of bite.js and language in the body of bite.js to make this delete button work. It'll be very similar to the comment delete button. You'll need to make the function for the event handler be a DELETE command sent to the photo/:id, and then you'll need to make sure that the fetch request in that function matches the route in the photoRoutes controller. --}}
+        <button class="btn btn-sm btn-danger" id="photo-delete" data-id="{{photo.id}}">DELETE THIS PHOTO</button>
+      </div>
+    </div>
+    {{/each}}
+    </div>
+
+
   {{/if}}
      {{#if comments.length}}
   <div class="col-md-6 comment-list">
@@ -60,7 +77,7 @@
         <button type="submit" class="btn btn-primary" id="comment-submit" data-id="{{id}}">Submit</button>
       </div>
     </form>
-  </div>  </p>
+  </div>
 
 
 <script src="/js/bite.js"></script>
