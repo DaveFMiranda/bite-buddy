@@ -17,17 +17,23 @@ const seedDatabase = async () => {
     returning: true,
   });
 
+  const createdBites = [];
+
   for (const bite of biteData) {
-    await Bite.create({
+    const createdBite = await Bite.create({
       ...bite,
       user_id: users[Math.floor(Math.random() * users.length)].id,
     });
+    createdBites.push(createdBite);
   }
 
   for (const comment of commentData) {
     await Comment.create({
       ...comment,
       user_id: users[Math.floor(Math.random() * users.length)].id,
+    
+      
+      bite_id: createdBites[Math.floor(Math.random() * createdBites.length)].id,
     });
   }
 
