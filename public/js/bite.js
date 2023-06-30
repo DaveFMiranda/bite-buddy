@@ -12,8 +12,8 @@ console.log(biteDelete);
 // const commentId = document.querySelector('#ebite-edit');
 // const commentEditID = commentId.getAttribute('data-id');
 
-const photoId = document.querySelector('#photo-delete');
-const photoDelete = photoId.getAttribute('data-id');
+// const photoId = document.querySelector('#photo-delete');
+// const photoDelete = photoId.getAttribute('data-id');
 
 
 
