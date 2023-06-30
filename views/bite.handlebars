@@ -5,6 +5,9 @@
     {{headline}}</h2>
   {{!-- <p>{{{get_emoji}}}</p> --}}
   <p id="bite-content">{{content}}</p>
+<input type="text" class="edit-input" id="bite-update" style="display: none;">
+          <button class="btn btn-sm btn-danger" id="edit-submit" style="display: none;">Submit Edit</button>
+
 
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
 
@@ -13,8 +16,7 @@
     <div class="row mb-2">
       <div class="col-md-4">
         <button class="btn btn-sm btn-danger" id="bite-edit" data-id="{{id}}">EDIT THIS BITE</button>
-          <input type="text" class="edit-input" id="bite-update" style="display: none;">
-          <button class="btn btn-sm btn-danger" id="edit-submit" style="display: none;">Submit Edit</button>
+          
                 <button class="btn btn-sm btn-danger" id="bite-delete" data-id="{{id}}">DELETE THIS BITE</button>
       </div>
     </div>
@@ -55,13 +57,14 @@
     <div class="row mb-2">
       <div class="col-md-8">
         <p id="ebite-content" data-id="{{comment.id}}">{{comment.content}}</p>
+         <input type="text" class="edit-input" id="ebite-update" data-id="{{comment.id}}" style="display: none;">
+          <button class="btn btn-sm btn-danger" id="eedit-submit" data-id="{{comment.id}}" style="display: none;">Submit edit</button>
           <p>Created by {{user.name}} on {{format_date date_created}}</p>
 
       </div>
        <div class="col-md-4 edit-buttons">
         <button class="btn btn-sm btn-danger" id="ebite-edit" data-id="{{comment.id}}">EDIT COMMENT</button>
-          <input type="text" class="edit-input" id="ebite-update" data-id="{{comment.id}}" style="display: none;">
-          <button class="btn btn-sm btn-danger" id="eedit-submit" data-id="{{comment.id}}" style="display: none;">Submit edit</button>
+         
           </div>
       <div class="col-md-4 delete-buttons">
         <button class="btn btn-sm btn-danger" id="comment-delete" data-id="{{comment.id}}">DELETE THIS COMMENT</button>

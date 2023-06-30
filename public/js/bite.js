@@ -6,6 +6,8 @@ const biteEditId = document.querySelector('#bite-edit');
 const biteEdit = biteEditId.getAttribute('data-id');
 console.log(biteEdit);
 
+
+
 const biteDeleteId = document.querySelector('#bite-delete');
 const biteDelete = biteDeleteId.getAttribute('data-id');
 console.log(biteDelete);
@@ -24,11 +26,12 @@ const newFormHandler = async (event) => {
   event.preventDefault();
   // TO DO: update querySelectors to match names in the views. Also remove "needed funding"
   // const needed_funding = document.querySelector('#project-funding').value.trim();
-  const content = document.querySelector('#comment-content').value.trim();
-  console.log(content);
+  const commentContent = document.querySelector('#comment-content').value.trim();
+  console.log(commentContent);
 
   // Make sure the fetch route is accurate and make sure the fields after body: below match the model you're trying to update
-  if (content) {
+  if (commentContent) {
+    let content=commentContent
     const response = await fetch(`/api/comments`, {
       method: 'POST',
       body: JSON.stringify({ content, biteId }),
@@ -52,9 +55,12 @@ const editButtonHandler = async (event) => {
   // TO DO: make sure the route below is correct
 
   const oldContent = document.querySelector('#bite-content');
+  const oldContentText = oldContent.textContent;
   const newContent = document.querySelector('#bite-update');
   oldContent.style.display = 'none';
   newContent.style.display = 'block';
+  newContent.value = oldContentText;
+  console.log(oldContentText);
   newContent.focus();
   console.log(newContent);
 
