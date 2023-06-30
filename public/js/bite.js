@@ -88,12 +88,23 @@ const editContentSubmission = async (event) => {
     console.log(biteEdit);
 
     if (response.ok) {
-      // Change this to redirect to /profile
       document.location.replace(`/bites/${biteEdit}`);
     } else {
       alert('Failed to edit bite entry');
     }
   }
+
+
+
+  
+  document.body.addEventListener('click', (event) => {
+    const isClickedInside = event.target.closest('#bite-update');
+    if (!isClickedInside) {
+      document.querySelector('#bite-update').blur();
+    }
+  });
+
+
 };
 const editcommentButtonHandler = async (event) => {
   event.preventDefault();
@@ -106,9 +117,11 @@ console.log(commentEditId);
 
 
   const oldContent = document.querySelector(`[data-id="${commentEditId}"]#ebite-content`);
+  const oldContentText = oldContent.textContent;
   const newContent = document.querySelector(`[data-id="${commentEditId}"]#ebite-update`);
   oldContent.style.display = 'none';
   newContent.style.display = 'block';
+  newContent.value = oldContentText;
   newContent.focus();
   console.log(newContent);
 
@@ -121,8 +134,8 @@ console.log(commentEditId);
 const editCommentSubmission = async (event) => {
   const button = event.target;
   const commentEditID = button.getAttribute('data-id');
-
   event.preventDefault();
+ 
   const newContent = document.querySelector(`[data-id="${commentEditID}"]#ebite-update`).value.trim();
   console.log(newContent);
 
@@ -147,6 +160,13 @@ const editCommentSubmission = async (event) => {
       alert('Failed to update comment entry');
     }
   }
+  document.body.addEventListener('click', (event) => {
+    const isClickedInside = event.target.closest(`[data-id="${commentEditID}"]#ebite-update`);
+    if (!isClickedInside) {
+      document.querySelector(`[data-id="${commentEditID}"]#ebite-update`).blur();
+    }
+  });
+
 };
 
 const delButtonHandler = async (event) => {
