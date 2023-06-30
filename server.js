@@ -15,8 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 AWS.config.update({
-  accessKeyId: 'AKIAVUTWBCGEWGP7SGFN',
-  secretAccessKey: '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',
+// deleted access keys here so they're not public
   region: 'us-east-2'
 });
 
