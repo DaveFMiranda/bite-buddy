@@ -7,8 +7,13 @@
   {
     "headline": "Chris: is he a bug?",
     "content": "Is this Chris or is it a bug? Or is it a chrisbug?"
-  }, {
+  }, 
+  {
     "headline": "Dave hs lice",
     "content": "Are these lice or rice in Dave's hair?"
+  },
+  {
+    "headline": "What is this bite?",
+    "content": "I got bit by some bugs and I don't know which one caused this bite."
   }
 ]
