@@ -113,10 +113,12 @@ console.log(commentEditId);
 };
 
 const editCommentSubmission = async (event) => {
+  event.preventDefault();
+
+  
   const button = event.target;
   const commentEditID = button.getAttribute('data-id');
 
-  event.preventDefault();
   const newContent = document.querySelector(`[data-id="${commentEditID}"]#ebite-update`).value.trim();
   console.log(newContent);
 
@@ -144,6 +146,8 @@ const editCommentSubmission = async (event) => {
 };
 
 const delButtonHandler = async (event) => {
+  event.preventDefault();
+
   // TO DO: make sure the route below is correct
   const response = await fetch(`/api/bites/${biteDelete}`, {
     method: 'DELETE',
@@ -160,6 +164,8 @@ const delButtonHandler = async (event) => {
 };
 
 const delButtonHandler2 = async (event) => {
+  event.preventDefault();
+
   const commentId = event.target.getAttribute('data-id');
   console.log(commentId);
   const response = await fetch(`/api/comments/${commentId}`, {
@@ -174,6 +180,8 @@ const delButtonHandler2 = async (event) => {
 };
 
 const photoDeleteButton = async (event) => {
+  event.preventDefault();
+
   const photoDelete = event.target.getAttribute('data-id');
   console.log(photoDelete);
   const response = await fetch(`/api/photos/${photoDelete}`, {
