@@ -2,7 +2,6 @@
  
   <h2>
     {{headline}}</h2>
-  {{!-- <p>{{{get_emoji}}}</p> --}}
   <p id="bite-content">{{content}}</p>
 
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
@@ -10,21 +9,21 @@
 
   <div class="col-md-6 bite-list">
     <div class="row mb-2">
-      <div class="col-md-4">
+      <div class="col-md-4 bite-buttons">
+                <p>session user id= {{sessionUser}}</p>
+
+        {{#isEqual sessionUser user_id}}
+        {{!-- IF session.user_id === user_id, THEN... --}}
         <button class="btn btn-sm btn-danger" id="bite-edit" data-id="{{id}}">EDIT THIS BITE</button>
           <input type="text" class="edit-input" id="bite-update" style="display: none;">
           <button class="btn btn-sm btn-danger" id="edit-submit" style="display: none;">Submit Edit</button>
                 <button class="btn btn-sm btn-danger" id="bite-delete" data-id="{{id}}">DELETE THIS BITE</button>
+{{/isEqual}}
+
       </div>
     </div>
  </div>
 
-
-  {{!-- <p>
-    <span for="img" aria-label="money">💲</span>
-    <span class="dollar-amount">{{format_amount needed_funding}}</span>
-    needed
-  </p> --}}
    
 
 
@@ -34,7 +33,7 @@
 {{#each photos as |photo|}}
     <div class="row mb-2">
           <img src="{{photo.image_url}}" alt="Bite Image">
-
+{{!-- TO DO: add conditional language so only the owner of a photo can delete the photo --}}
       <div class="col-md-4">
       
         <button class="btn btn-sm btn-danger" id="photo-delete" data-id="{{photo.id}}">DELETE THIS PHOTO</button>
@@ -49,13 +48,21 @@
      
   <div class="col-md-6 comment-list">
     <h3>Comments</h3>
+
 {{#each comments as |comment|}}
+
     <div class="row mb-2"></div>
       <div class="col-md-8">
         <p id="ebite-content" data-id="{{comment.id}}">{{comment.content}}</p>
-          <p>Created by {{user.name}} on {{format_date date_created}}</p>
+          <p>Created by {{comment.user.name}} on {{format_date comment.date_created}}</p>
 
       </div>
+      <div class="comment-buttons">
+        <p>comment user id= {{comment.user_id}}</p>
+        <p>session user id= {{sessionUser}}</p>
+        {{!-- {{#isEqual sessionUser comment.user_id}} --}}
+
+
        <div class="col-md-4 edit-buttons">
         <button class="btn btn-sm btn-danger" id="ebite-edit" data-id="{{comment.id}}">EDIT COMMENT</button>
           <input type="text" class="edit-input" id="ebite-update" data-id="{{comment.id}}" style="display: none;">
@@ -64,7 +71,9 @@
       <div class="col-md-4 delete-buttons">
         <button class="btn btn-sm btn-danger" id="comment-delete" data-id="{{comment.id}}">DELETE THIS COMMENT</button>
       </div>
-    
+{{!-- {{/isEqual}} --}}
+
+    </div>
     {{/each}}
 {{/if}}
 </div>

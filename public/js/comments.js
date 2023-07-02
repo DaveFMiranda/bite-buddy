@@ -38,7 +38,7 @@ const delButtonHandler2 = async (event) => {
   });
 
   if (response.ok) {
-    document.location.replace(`/bites/${biteDelete}`);
+    document.location.replace(`/bites/${biteId}`);
   } else {
     alert('Failed to delete comment');
   }

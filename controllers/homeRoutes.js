@@ -39,14 +39,14 @@ router.get('/bites/:id', async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['id', 'name'],
           
         },
         {model: Comment,
           attributes: ['id', 'content', 'date_created', 'user_id'],
           include: {
             model: User,
-            attributes: ['name']
+            attributes: ['name'],
           },
         },
         {model: Photo,
@@ -62,10 +62,12 @@ router.get('/bites/:id', async (req, res) => {
 
     const bite = biteData.get({ plain: true });
     console.log(bite);
+    console.log(req.session.user_id);
+    
     res.render('bite', {
       ...bite,
       logged_in: req.session.logged_in,
-    
+      sessionUser: req.session.user_id,
     });
   } catch (err) {
     res.status(500).json(err);

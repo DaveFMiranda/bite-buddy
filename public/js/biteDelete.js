@@ -18,9 +18,6 @@ const delButtonHandler = async (event) => {
   }
 };
 
-
 document
   .querySelector('#bite-delete')
   .addEventListener('click', delButtonHandler);
-
-
