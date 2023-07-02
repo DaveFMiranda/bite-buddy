@@ -62,10 +62,14 @@ router.get('/bites/:id', async (req, res) => {
 
     const bite = biteData.get({ plain: true });
     console.log(bite);
+
+
+
     res.render('bite', {
+
       ...bite,
       logged_in: req.session.logged_in,
-    
+      // if logged in, login = true
     });
   } catch (err) {
     res.status(500).json(err);

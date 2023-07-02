@@ -132,9 +132,10 @@ console.log(commentEditId);
 };
 
 const editCommentSubmission = async (event) => {
+  event.preventDefault();
+  
   const button = event.target;
   const commentEditID = button.getAttribute('data-id');
-  event.preventDefault();
  
   const newContent = document.querySelector(`[data-id="${commentEditID}"]#ebite-update`).value.trim();
   console.log(newContent);
