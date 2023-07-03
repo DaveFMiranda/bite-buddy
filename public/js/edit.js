@@ -6,9 +6,11 @@ const editButtonHandler = async (event) => {
   event.preventDefault();
 
   const oldContent = document.querySelector('#bite-content');
+  const oldContentText = oldContent.textContent;
   const newContent = document.querySelector('#bite-update');
   oldContent.style.display = 'none';
   newContent.style.display = 'block';
+  newContent.value = oldContentText;
   newContent.focus();
   console.log(newContent);
 
@@ -51,11 +53,13 @@ const editcommentButtonHandler = async (event) => {
   const oldContent = document.querySelector(
     `[data-id="${commentEditId}"]#ebite-content`
   );
+  oldContentText = oldContent.textContent;
   const newContent = document.querySelector(
     `[data-id="${commentEditId}"]#ebite-update`
   );
   oldContent.style.display = 'none';
   newContent.style.display = 'block';
+  newContent.value = oldContentText;
   newContent.focus();
   console.log(newContent);
 
