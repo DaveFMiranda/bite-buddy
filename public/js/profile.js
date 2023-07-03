@@ -5,14 +5,10 @@ const newFormHandler = async (event) => {
   const headline = document.querySelector('#bite-headline').value.trim();
   // const needed_funding = document.querySelector('#project-funding').value.trim();
   const content = document.querySelector('#bite-content').value.trim();
-//photos
+  //photos
   const image_url = document.querySelector('#bite-image_url').value.trim();
 
-  
-
   // Make sure the fetch route is accurate and make sure the fields after body: below match the model you're trying to update
-
-
 
   if (headline && content) {
     const response = await fetch(`/api/bites`, {
@@ -32,7 +28,6 @@ const newFormHandler = async (event) => {
   }
 };
 
-
 const delButtonHandler = async (event) => {
   event.preventDefault();
 
@@ -43,10 +38,6 @@ const delButtonHandler = async (event) => {
     const response = await fetch(`/api/bites/${id}`, {
       method: 'DELETE',
     });
-    
-    
-
-console.log(id);
 
     // TO DO: update alert
     if (response.ok) {
