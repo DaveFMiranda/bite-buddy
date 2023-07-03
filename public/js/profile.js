@@ -1,14 +1,40 @@
+
+
+
+
+const uploadHandler = async (event) => {
+  event.preventDefault();
+  const image_url = document.querySelector('#bite-image_url');
+  const image_files = image_url.files;
+  console.log(image_files);
+  if (image_files) {
+    const uploadFile = () => {
+      const file = image_files[0];
+  
+        if (file) {
+          const fileRef = storageRef.child('images/' + file.name);
+          fileRef.put(file)
+          .then((snapshot) => {
+            console.log('File uploaded');
+          })
+          .catch((error) => {
+            console.error('Error uploading file', error);
+  
+          });
+        }
+  
+    };
+  uploadFile();
+  };
+};
+
 const newFormHandler = async (event) => {
   event.preventDefault();
 
-  // TO DO: update querySelectors to match names in the views. Also remove "needed funding"
   const headline = document.querySelector('#bite-headline').value.trim();
-  // const needed_funding = document.querySelector('#project-funding').value.trim();
   const content = document.querySelector('#bite-content').value.trim();
 //photos
-  const image_url = document.querySelector('#bite-image_url').value.trim();
 
-  
 
   // Make sure the fetch route is accurate and make sure the fields after body: below match the model you're trying to update
 
@@ -17,7 +43,7 @@ const newFormHandler = async (event) => {
   if (headline && content) {
     const response = await fetch(`/api/bites`, {
       method: 'POST',
-      body: JSON.stringify({ headline, content, image_url }),
+      body: JSON.stringify({ headline, content }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -65,3 +91,7 @@ document
 document
   .querySelector('.delete-list')
   .addEventListener('click', delButtonHandler);
+
+  document
+  .querySelector('#bite-image_url')
+  .addEventListener('change', uploadHandler);

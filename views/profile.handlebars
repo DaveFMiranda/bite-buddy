@@ -1,5 +1,3 @@
-{{!TO DO: update headers, labels, IDs, names. REMEMBER! these need to be called by the event handlers in public/js, so the ids need to match}}
-
 <div class='row'>
   <div class='col-auto'>
     <h2>Welcome, {{name}}!</h2>
@@ -9,7 +7,6 @@
 <div class='row mt-4'></div>
 <div class='col-md-6'>
   <h3>Submit a new bite:</h3>
-
   <form class='form new-bite-form'>
     <div class='form-group'>
       <label for='bite-headline'>What do you want to ask about your bite?</label>
@@ -25,15 +22,12 @@
       <label for='bite-image_url'>Please provide an image URL for your bite:</label>
       <input
         class='form-input'
-        type='text'
+        {{!-- type='text' --}}
+        type="file"
         id='bite-image_url'
         name='bite-image_url'
       />
     </div>
-    {{! <div class="form-group">
-        <label for="project-funding">needed funding ($):</label>
-        <input class="form-input" type="number" id="project-funding" name="project-funding" />
-      </div> }}
     <div class='form-group'>
       <label for='bite-content'>Please provide additional details about your
         bite:</label>
