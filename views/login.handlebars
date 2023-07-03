@@ -1,42 +1,82 @@
-<div class="row">
-  <div class="col-md-6">
-    <h2>Login</h2>
+<div>
+  <img class='h-auto max-w-sm rounded-sm' src='/images/cool bug.png' />
+  <div class='flex flex-row'>
 
-    <form class="form login-form">
-      <div class="form-group">
-        <label for="email-login">email:</label>
-        <input class="form-input" type="text" id="email-login" />
-      </div>
-      <div class="form-group">
-        <label for="password-login">password:</label>
-        <input class="form-input" type="password" id="password-login" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">login</button>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-6">
-    <h2>Signup</h2>
+    <div class='w-1/2 bg-green-100'>
+      <h2
+        class='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'
+      >Login</h2>
 
-    <form class="form signup-form">
-      <div class="form-group">
-        <label for="name-signup">name:</label>
-        <input class="form-input" type="text" id="name-signup" />
-      </div>
-      <div class="form-group">
-        <label for="email-signup">email:</label>
-        <input class="form-input" type="text" id="email-signup" />
-      </div>
-      <div class="form-group">
-        <label for="password-signup">password:</label>
-        <input class="form-input" type="password" id="password-signup" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">signup</button>
-      </div>
-    </form>
+      <form class='px-4 py-6 login-form'>
+        <div class='mb-4'>
+          <label for='email-login' class='block text-gray-700'>Email:</label>
+          <input
+            type='text'
+            id='email-login'
+            class='form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+          />
+        </div>
+        <div class='mb-4'>
+          <label
+            for='password-login'
+            class='block text-gray-700'
+          >Password:</label>
+          <input
+            type='password'
+            id='password-login'
+            class='form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+          />
+        </div>
+        <div class='mb-4'>
+          <button
+            type='submit'
+            class='bg-green-400 text-white px-4 py-2 rounded-md'
+          >Login</button>
+        </div>
+      </form>
+    </div>
+    <div class='w-1/2 bg-green-100'>
+      <h2
+        class='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'
+      >Signup</h2>
+
+      <form class='px-4 py-6 signup-form'>
+        <div class='mb-4'>
+          <label for='name-signup' class='block text-gray-700'>Name:</label>
+          <input
+            type='text'
+            id='name-signup'
+            class='form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+          />
+        </div>
+        <div class='mb-4'>
+          <label for='email-signup' class='block text-gray-700'>Email:</label>
+          <input
+            type='text'
+            id='email-signup'
+            class='form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+          />
+        </div>
+        <div class='mb-4'>
+          <label
+            for='password-signup'
+            class='block text-gray-700'
+          >Password:</label>
+          <input
+            type='password'
+            id='password-signup'
+            class='form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+          />
+        </div>
+        <div class='mb-4'>
+          <button
+            type='submit'
+            class='bg-green-400 text-white px-4 py-2 rounded-md'
+          >Signup</button>
+        </div>
+      </form>
+    </div>
   </div>
+
+  <script src='./js/login.js'></script>
 </div>
-
-<script src="./js/login.js"></script>
