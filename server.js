@@ -5,19 +5,18 @@ const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 const firebase = require('firebase/app');
-const {getStorage, ref } = require('firebase/storage');
+const { getStorage, ref } = require('firebase/storage');
 // const {getDatabase, ref, set, get} = require('firebase/database');
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCx1FyNEYWcoYMCl6pre879ZfYzOqoxW9U",
-  authDomain: "bite-buddy-7461e.firebaseapp.com",
-  projectId: "bite-buddy-7461e",
-  storageBucket: "bite-buddy-7461e.appspot.com",
-  messagingSenderId: "591261066571",
-  appId: "1:591261066571:web:eeb8f7e84bd70ede2074ce",
-  measurementId: "G-7PP1DLXJP9"
+  apiKey: 'AIzaSyCx1FyNEYWcoYMCl6pre879ZfYzOqoxW9U',
+  authDomain: 'bite-buddy-7461e.firebaseapp.com',
+  projectId: 'bite-buddy-7461e',
+  storageBucket: 'bite-buddy-7461e.appspot.com',
+  messagingSenderId: '591261066571',
+  appId: '1:591261066571:web:eeb8f7e84bd70ede2074ce',
+  measurementId: 'G-7PP1DLXJP9',
 };
-
 
 const fb = firebase.initializeApp(firebaseConfig);
 
@@ -40,8 +39,7 @@ const fb = firebase.initializeApp(firebaseConfig);
 //     console.error('error connecting to firebase db', error);
 //   });
 
-
-const storage = getStorage();
+const storage = getStorage(fb);
 const storageRef = ref(storage);
 
 
@@ -65,8 +63,8 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
-    db: sequelize
-  })
+    db: sequelize,
+  }),
 };
 
 app.use(session(sess));
@@ -83,6 +81,10 @@ app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
+});
+
+app.get('/api/storageRef', (req, res) => {
+  res.json({ storageRef: storageRef });
 });
 
 module.exports = { storageRef };

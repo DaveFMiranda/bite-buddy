@@ -1,6 +1,14 @@
+let storageRef;
 
-
-
+fetch('/api/storageRef')
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.storageRef);
+    storageRef = data.storageRef;
+  })
+  .catch((error) => {
+    console.error('Error fetching storageRef:', error);
+  });
 
 const uploadHandler = async (event) => {
   event.preventDefault();
@@ -10,22 +18,21 @@ const uploadHandler = async (event) => {
   if (image_files) {
     const uploadFile = () => {
       const file = image_files[0];
-  
-        if (file) {
-          const fileRef = storageRef.child('images/' + file.name);
-          fileRef.put(file)
+      console.log(file);
+      if (file) {
+        const fileRef = storageRef('images/' + file.name);
+        fileRef
+          .put(file)
           .then((snapshot) => {
             console.log('File uploaded');
           })
           .catch((error) => {
             console.error('Error uploading file', error);
-  
           });
-        }
-  
+      }
     };
-  uploadFile();
-  };
+    uploadFile();
+  }
 };
 
 const newFormHandler = async (event) => {
@@ -33,12 +40,9 @@ const newFormHandler = async (event) => {
 
   const headline = document.querySelector('#bite-headline').value.trim();
   const content = document.querySelector('#bite-content').value.trim();
-//photos
-
+  //photos
 
   // Make sure the fetch route is accurate and make sure the fields after body: below match the model you're trying to update
-
-
 
   if (headline && content) {
     const response = await fetch(`/api/bites`, {
@@ -58,7 +62,6 @@ const newFormHandler = async (event) => {
   }
 };
 
-
 const delButtonHandler = async (event) => {
   event.preventDefault();
 
@@ -69,10 +72,8 @@ const delButtonHandler = async (event) => {
     const response = await fetch(`/api/bites/${id}`, {
       method: 'DELETE',
     });
-    
-    
 
-console.log(id);
+    console.log(id);
 
     // TO DO: update alert
     if (response.ok) {
@@ -92,6 +93,6 @@ document
   .querySelector('.delete-list')
   .addEventListener('click', delButtonHandler);
 
-  document
+document
   .querySelector('#bite-image_url')
   .addEventListener('change', uploadHandler);
