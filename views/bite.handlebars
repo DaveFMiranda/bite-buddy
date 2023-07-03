@@ -26,72 +26,79 @@
 
   {{#if photos.length}}
     {{#each photos as |photo|}}
-      <div class='flex items-start mb-2'>
-        <img class='mr-4' src='{{photo.image_url}}' alt='Bite Image' />
-
+      <div class='flex justify-between items-stretch'>
+        <div class='flex items-start mb-2 w-1/2'>
+          <img class='mr-4' src='{{photo.image_url}}' alt='Bite Image' />
+        </div>
         <div>
           <h2 class='text-2xl'>{{headline}}</h2>
           <p id='bite-content'>{{content}}</p>
           <input type='text' class='edit-input hidden' id='bite-update' />
           <button class='btn btn-sm btn-danger hidden' id='edit-submit'>Submit
             Edit</button>
-          <p>Created by {{user.name}} on {{format_date date_created}}</p>
+          {{!-- <p>Created by {{user.name}} on {{format_date date_created}}</p> --}}
         </div>
 
-        <div>
-          {{! TO DO: add conditional language so only the owner of a photo can delete the photo }}
-          <button
-            class='btn btn-sm btn-danger'
-            id='photo-delete'
-            data-id='{{photo.id}}'
-          >DELETE THIS PHOTO</button>
-        </div>
-      </div>
-    {{/each}}
-  {{/if}}
-
-  {{#if comments.length}}
-    <h3>Comments</h3>
-    {{#each comments as |comment|}}
-      <div>
-        <p id='ebite-content' data-id='{{comment.id}}'>{{comment.content}}</p>
-        <input
-          type='text'
-          class='edit-input hidden'
-          id='ebite-update'
-          data-id='{{comment.id}}'
-        />
-        <button
-          class='btn btn-sm btn-danger hidden'
-          id='edit-submit'
-          data-id='{{comment.id}}'
-        >Submit edit</button>
-        <p>Created by
-          {{comment.user.name}}
-          on
-          {{format_date comment.date_created}}</p>
-
-        <div class='comment-buttons flex justify-center'>
-          <div class='edit-buttons'>
+        {{#if logged_in}}
+          <div>
             <button
               class='btn btn-sm btn-danger'
-              id='ebite-edit'
-              data-id='{{comment.id}}'
-            >EDIT COMMENT</button>
-            <button
-              class='btn btn-sm btn-danger hidden'
-              id='edit-submit'
-              data-id='{{comment.id}}'
-            >Submit edit</button>
+              id='photo-delete'
+              data-id='{{photo.id}}'
+            >DELETE THIS PHOTO</button>
           </div>
-          <div class='delete-buttons'>
-            <button
-              class='btn btn-sm btn-danger'
-              id='comment-delete'
-              data-id='{{comment.id}}'
-            >DELETE THIS COMMENT</button>
+        {{/if}}
+
+        {{#if comments.length}}
+          <div class='overflow-y-auto h-96 w-1/2'>
+            <h3>Comments</h3>
+            {{#each comments as |comment|}}
+              <div>
+                <p
+                  id='ebite-content'
+                  data-id='{{comment.id}}'
+                >{{comment.content}}</p>
+                <input
+                  type='text'
+                  class='edit-input hidden'
+                  id='ebite-update'
+                  data-id='{{comment.id}}'
+                />
+                <button
+                  class='btn btn-sm btn-danger hidden'
+                  id='edit-submit'
+                  data-id='{{comment.id}}'
+                >Submit edit</button>
+                <p>Created by
+                  {{comment.user.name}}
+                  on
+                  {{format_date comment.date_created}}</p>
+
+                <div class='comment-buttons flex justify-center'>
+                  <div class='edit-buttons'>
+                    <button
+                      class='btn btn-sm btn-danger'
+                      id='ebite-edit'
+                      data-id='{{comment.id}}'
+                    >EDIT COMMENT</button>
+                    <button
+                      class='btn btn-sm btn-danger hidden'
+                      id='edit-submit'
+                      data-id='{{comment.id}}'
+                    >Submit edit</button>
+                  </div>
+                  <div class='delete-buttons'>
+                    <button
+                      class='btn btn-sm btn-danger'
+                      id='comment-delete'
+                      data-id='{{comment.id}}'
+                    >DELETE THIS COMMENT</button>
+                  </div>
+                </div>
+              </div>
+            {{/each}}
           </div>
-        </div>
+        {{/if}}
       </div>
     {{/each}}
   {{/if}}
