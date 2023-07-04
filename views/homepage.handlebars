@@ -8,14 +8,16 @@
     />
   </head>
   <body class='bg-gray-100'>
-    <img class='h-auto max-w-sm rounded-sm' src='/images/spider.png' />
+    <div class='flex justify-center'>
+      <img class='h-auto max-w-sm rounded-sm' src='/images/spider.png' />
+    </div>
     <div class='container mx-auto p-8'>
       <h1 class='text-4xl font-bold text-center mb-8'>Welcome to Bite Buddy</h1>
 
       {{! Loop over each object in the bites array }}
       {{#each bites as |bite|}}
-        <div class='bg-white rounded-lg shadow-lg mb-8'>
-          <div class='p-8'>
+        <div class='bg-white rounded-lg shadow-lg mb-8 flex'>
+          <div class='p-8 flex-grow'>
             <h2 class='text-2xl font-bold mb-4'>
               <a
                 href='/bites/{{bite.id}}'
@@ -27,6 +29,15 @@
               on
               {{format_date bite.date_created}}</p>
             <p class='text-gray-800'>{{bite.content}}</p>
+          </div>
+          <div>
+            {{#if bite.photos.length}}
+              <img
+                src='{{bite.photos.0.image_url}}'
+                alt='Bite Image'
+                class='w-40 h-40 object-cover mt-2.5 mr-2.5 rounded'
+              />
+            {{/if}}
           </div>
         </div>
       {{/each}}

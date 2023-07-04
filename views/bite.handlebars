@@ -1,101 +1,184 @@
-
- 
-  <h2>
-    {{headline}}</h2>
-  <p id="bite-content">{{content}}</p>
-          <input type="text" class="edit-input" id="bite-update" style="display: none;">
-          <button class="btn btn-sm btn-danger" id="edit-submit" style="display: none;">Submit Edit</button>
-
+<div class='flex flex-col items-center'>
+  <h2 class='text-3xl font-bold'>{{headline}}</h2>
+  <h3 class='text-xl' id='bite-content'>{{content}}</h3>
+  <input type='text' class='edit-input hidden' id='bite-update' />
+  <button class='btn btn-sm btn-danger hidden' id='edit-submit'>Submit Edit</button>
 
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
 
-
-  <div class="col-md-6 bite-list">
-    <div class="row mb-2">
-      <div class="col-md-4 bite-buttons">
-
-        {{#isEqual sessionUser user_id}}
-        {{!-- IF session.user_id === user_id, THEN... --}}
-        <button class="btn btn-sm btn-danger" id="bite-edit" data-id="{{id}}">EDIT THIS BITE</button>
-                <button class="btn btn-sm btn-danger" id="bite-delete" data-id="{{id}}">DELETE THIS BITE</button>
-{{/isEqual}}
-
-      </div>
+  <div class='bite-list mb-2'>
+    <div class='bite-buttons'>
+      {{#isEqual sessionUser user_id}}
+        {{! IF session.user_id === user_id, THEN... }}
+        <button
+          class='btn btn-sm btn-danger'
+          id='bite-edit'
+          data-id='{{id}}'
+        >EDIT THIS BITE</button>
+        <button
+          class='btn btn-sm btn-danger'
+          id='bite-delete'
+          data-id='{{id}}'
+        >DELETE THIS BITE</button>
+      {{/isEqual}}
     </div>
- </div>
-
-   
-
-
-{{#if photos.length}}
-    <div class="col-md-6 photo-list">
-    <h3>Photos</h3>
-{{#each photos as |photo|}}
-    <div class="row mb-2">
-          <img src="{{photo.image_url}}" alt="Bite Image">
-{{!-- TO DO: add conditional language so only the owner of a photo can delete the photo --}}
-      <div class="col-md-4">
-      
-        <button class="btn btn-sm btn-danger" id="photo-delete" data-id="{{photo.id}}">DELETE THIS PHOTO</button>
-      </div>
-    </div>
-    {{/each}}
-    </div>
-
-
-  {{/if}}
-     {{#if comments.length}}
-     
-  <div class="col-md-6 comment-list">
-    <h3>Comments</h3>
-
-{{#each comments as |comment|}}
-
-    <div class="row mb-2"></div>
-      <div class="col-md-8">
-        <p id="ebite-content" data-id="{{comment.id}}">{{comment.content}}</p>
-                  <input type="text" class="edit-input" id="ebite-update" data-id="{{comment.id}}" style="display: none;">
-<button class="btn btn-sm btn-danger" id="eedit-submit" data-id="{{comment.id}}" style="display: none;">Submit edit</button>
-          <p>Created by {{comment.user.name}} on {{format_date comment.date_created}}</p>
-
-      </div>
-      <div class="comment-buttons">
-       
-        {{!-- {{#isEqual sessionUser comment.user_id}} --}}
-
-
-       <div class="col-md-4 edit-buttons">
-        <button class="btn btn-sm btn-danger" id="ebite-edit" data-id="{{comment.id}}">EDIT COMMENT</button>
-          <button class="btn btn-sm btn-danger" id="eedit-submit" data-id="{{comment.id}}" style="display: none;">Submit edit</button>
-          </div>
-      <div class="col-md-4 delete-buttons">
-        <button class="btn btn-sm btn-danger" id="comment-delete" data-id="{{comment.id}}">DELETE THIS COMMENT</button>
-      </div>
-{{!-- {{/isEqual}} --}}
-
-    </div>
-    {{/each}}
-{{/if}}
-</div>
-
-<div class="row mt-4"> </div>
-  <div class="col-md-6">
-    <h3>Add a comment:</h3>
-
-    <form class="form new-comment-form">
-      <div class="form-group">
-        <input class="form-input" type="text" id="comment-content" name="comment-content" />
-      </div>
-      
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary" id="comment-submit" data-id="{{id}}">Submit</button>
-      </div>
-    </form>
   </div>
 
+  <div class='flex justify-between items-stretch'>
+    <div class='flex items-start mb-2 w-1/2'>
+      {{#if photos.length}}
+        <div class='embla'>
+          <div class='embla__viewport'>
+            <div class='embla__container'>
+              {{#each photos as |photo|}}
+                <div class='embla__slide'>
+                  <img
+                    class='mr-4'
+                    src='{{photo.image_url}}'
+                    alt='Bite Image'
+                  />
+                </div>
+              {{/each}}
+            </div>
+          </div>
+          <div class='text-center'>
+            <button class='embla__prev'>Prev</button>
+            <button class='embla__next'>Next</button>
+          </div>
+        </div>
+      {{else}}
+        <div></div>
+      {{/if}}
+    </div>
+    <div class='overflow-y-auto h-96 w-1/2'>
+      {{!-- <h2 class='text-2xl'>{{headline}}</h2>
+      <p id='bite-content'>{{content}}</p>
+      <input type='text' class='edit-input hidden' id='bite-update' />
+      <button class='btn btn-sm btn-danger hidden' id='edit-submit'>Submit Edit</button> --}}
+      {{!-- <p>Created by {{user.name}} on {{format_date date_created}}</p> --}}
+      <div class=''>
+        <h3 class='text-center text-xl'>Comments</h3>
+        {{#if comments.length}}
+          {{#each comments as |comment|}}
+            <div class='comment-card'>
+              <p
+                id='ebite-content'
+                data-id='{{comment.id}}'
+              >{{comment.content}}</p>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
 
-<script src="/js/edit.js"></script>
-<script src="/js/comments.js"></script>
-<script src="/js/photos.js"></script>
+    </div>
 
-<script src="/js/biteDelete.js"></script>
+    {{!-- {{#if logged_in}}
+            <div>
+              <button
+                class='btn btn-sm btn-danger'
+                id='photo-delete'
+                data-id='{{photo.id}}'
+              >DELETE THIS PHOTO</button>
+            </div>
+          {{/if}}
+        </div>
+
+        {{#if comments.length}}
+          
+            <h3>Comments</h3>
+            {{#each comments as |comment|}}
+              <div>
+                <p
+                  id='ebite-content'
+                  data-id='{{comment.id}}'
+                >{{comment.content}}</p>
+                <input
+                  type='text'
+                  class='edit-input hidden'
+                  id='ebite-update'
+                  data-id='{{comment.id}}'
+                />
+                <button
+                  class='btn btn-sm btn-danger hidden'
+                  id='edit-submit'
+                  data-id='{{comment.id}}'
+                >Submit edit</button>
+                <p>Created by
+                  {{comment.user.name}}
+                  on
+                  {{format_date comment.date_created}}</p>
+
+                <div class='comment-buttons flex justify-center'>
+                  <div class='edit-buttons'>
+                    <button
+                      class='btn btn-sm btn-danger'
+                      id='ebite-edit'
+                      data-id='{{comment.id}}'
+                    >EDIT COMMENT</button>
+                    <button
+                      class='btn btn-sm btn-danger hidden'
+                      id='edit-submit'
+                      data-id='{{comment.id}}'
+                    >Submit edit</button>
+                  </div>
+                  <div class='delete-buttons'>
+                    <button
+                      class='btn btn-sm btn-danger'
+                      id='comment-delete'
+                      data-id='{{comment.id}}'
+                    >DELETE THIS COMMENT</button>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        {{/if}}
+      </div>
+    {{/each}}
+  {{/if}} --}}
+  </div>
+</div>
+
+{{#if logged_in}}
+  <div class='mt-4 flex items-start mb-2 w-1/2'>
+    <div>
+      <h3>Add a comment:</h3>
+      <form class='form' id='new-comment-form'>
+        <div class='form-group'>
+          <input
+            class='form-input'
+            type='text'
+            id='comment-content'
+            name='comment-content'
+          />
+        </div>
+        <div class='form-group'>
+          <button
+            type='submit'
+            class='btn btn-primary'
+            id='comment-submit'
+            data-id='{{id}}'
+          >Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{{/if}}
+
+{{! Added carousel support for images }}
+<script src='https://unpkg.com/embla-carousel/embla-carousel.umd.js'></script>
+{{! prettier-ignore }}
+<script type='text/javascript'>
+  const rootNode = document.querySelector('.embla'); 
+  const viewportNode = rootNode.querySelector('.embla__viewport'); 
+  const prevButtonNode = rootNode.querySelector('.embla__prev'); 
+  const nextButtonNode = rootNode.querySelector('.embla__next'); 
+  const embla = EmblaCarousel(viewportNode); 
+  prevButtonNode.addEventListener('click', embla.scrollPrev, false); 
+  nextButtonNode.addEventListener('click', embla.scrollNext, false);
+</script>
+
+<script src='/js/edit.js'></script>
+<script src='/js/comments.js'></script>
+<script src='/js/photos.js'></script>
+<script src='/js/biteDelete.js'></script>
