@@ -1,13 +1,11 @@
-console.log('hello!');
 const submitId = document.querySelector('#comment-submit');
-const biteId = submitId.getAttribute('data-id');
-console.log(biteId);
+const biteId = submitId?.getAttribute('data-id');
+const newCommentForm = document.getElementById('new-comment-form');
 
 const newFormHandler = async (event) => {
   event.preventDefault();
 
   const content = document.querySelector('#comment-content').value.trim();
-  console.log(content);
 
   if (content) {
     const response = await fetch(`/api/comments`, {
@@ -44,9 +42,9 @@ const delButtonHandler2 = async (event) => {
   }
 };
 
-document
-  .querySelector('.new-comment-form')
-  .addEventListener('submit', newFormHandler);
+if (newCommentForm) {
+  newCommentForm.addEventListener('submit', newFormHandler);
+}
 
 const commentDeleteButtons = document.querySelectorAll('.delete-buttons');
 if (commentDeleteButtons) {

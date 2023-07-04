@@ -1,6 +1,6 @@
 const biteEditId = document.querySelector('#bite-edit');
-const biteEdit = biteEditId.getAttribute('data-id');
-console.log(biteEdit);
+const biteEdit = biteEditId?.getAttribute('data-id');
+const commentEditButtons = document.querySelectorAll('.edit-buttons');
 
 const editButtonHandler = async (event) => {
   event.preventDefault();
@@ -104,11 +104,10 @@ const editCommentSubmission = async (event) => {
   }
 };
 
-document
-  .querySelector('#bite-edit')
-  .addEventListener('click', editButtonHandler);
+if (biteEditId) {
+  biteEditId.addEventListener('click', editButtonHandler);
+}
 
-const commentEditButtons = document.querySelectorAll('.edit-buttons');
 if (commentEditButtons) {
   commentEditButtons.forEach((commentEditButton) => {
     commentEditButton.addEventListener('click', editcommentButtonHandler);
