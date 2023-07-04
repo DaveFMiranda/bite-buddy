@@ -17,4 +17,4 @@ const delButtonHandler = async (event) => {
 
 if (biteDeleteId) {
   biteDeleteId.addEventListener('click', delButtonHandler);
-};
+}

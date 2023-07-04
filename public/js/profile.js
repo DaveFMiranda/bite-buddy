@@ -9,7 +9,6 @@ const newFormHandler = async (event) => {
   console.log(headline);
   console.log(content);
 
-
   if (headline && content) {
     const fileInput = document.getElementById('bite-image_url');
     const formData = new FormData();
@@ -18,21 +17,19 @@ const newFormHandler = async (event) => {
       const response = await fetch('/upload', {
         method: 'POST',
         body: formData,
-      })
-       
-          if (response.ok) {
-            const data = await response.json();
-            console.log('file sent to server');
-            image_url = data.url;
+      });
 
-            console.log(response);
-            return response.json();
-          } else {
-            console.log('file failed to send to server');
-          }
-    };
+      if (response.ok) {
+        const data = await response.json();
+        console.log('file sent to server');
+        image_url = data.url;
 
-
+        console.log(response);
+        return response.json();
+      } else {
+        console.log('file failed to send to server');
+      }
+    }
 
     const biteResponse = await fetch(`/api/bites`, {
       method: 'POST',
@@ -48,7 +45,6 @@ const newFormHandler = async (event) => {
     } else {
       alert('Failed to create bite entry');
     }
-
   }
 };
 
@@ -76,7 +72,6 @@ const delButtonHandler = async (event) => {
 
 const uploadHandler = async (event) => {
   event.preventDefault();
-  
 };
 
 function handleFileSelect() {

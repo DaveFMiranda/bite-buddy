@@ -112,4 +112,4 @@ if (commentEditButtons) {
   commentEditButtons.forEach((commentEditButton) => {
     commentEditButton.addEventListener('click', editcommentButtonHandler);
   });
-};
+}
