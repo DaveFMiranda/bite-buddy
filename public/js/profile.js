@@ -53,8 +53,8 @@ const delButtonHandler = async (event) => {
 
 // TO DO: make sure querySelectors match handlebars docs
 document
-  .querySelector('.new-bite-form')
-  .addEventListener('submit', newFormHandler);
+  .querySelector('#new-bite')
+  .addEventListener('click', newFormHandler);
 
 document
   .querySelector('.delete-list')

@@ -6,14 +6,20 @@ const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 const fileUpload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
-
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(fileUpload());
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: '/temp',
+
+}
+
+
+));
 
 cloudinary.config({
   cloud_name: 'dclljtiqc', 
@@ -22,11 +28,15 @@ cloudinary.config({
 });
 
 app.post('/upload', (req, res) => {
-  if (!req.files || !req.files.photo) {
+
+
+    console.log(req.files);
+
+  if (!req.files || !req.files['bite-image_url']) {
     return res.status(400).send('No file uploaded');
   }
 
-const photo = req.files.photo;
+const photo = req.files['bite-image_url'];
 
 cloudinary.uploader.upload(photo.tempFilePath, (error, result) => {
   if (error) {
