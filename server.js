@@ -32,11 +32,11 @@ app.post('/upload', (req, res) => {
 
     console.log(req.files);
 
-  if (!req.files || !req.files['bite-image_url']) {
+  if (!req.files || !req.files.photo) {
     return res.status(400).send('No file uploaded');
   }
 
-const photo = req.files['bite-image_url'];
+const photo = req.files.photo;
 
 cloudinary.uploader.upload(photo.tempFilePath, (error, result) => {
   if (error) {
@@ -44,7 +44,7 @@ cloudinary.uploader.upload(photo.tempFilePath, (error, result) => {
     return res.status(500).send('Error uploading file');
 
   }
-  res.send(result.secure_url);
+  res.json({ url: result.secure_url });
 });
 
 });

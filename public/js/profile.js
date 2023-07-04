@@ -1,3 +1,5 @@
+let image_url;
+
 const newFormHandler = async (event) => {
   event.preventDefault();
 
@@ -14,7 +16,7 @@ console.log(content);
   if (headline && content) {
     const response = await fetch(`/api/bites`, {
       method: 'POST',
-      body: JSON.stringify({ headline, content }),
+      body: JSON.stringify({ headline, content, image_url }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -51,6 +53,40 @@ const delButtonHandler = async (event) => {
   }
 };
 
+const uploadHandler = async (event) => {
+  event.preventDefault();
+  const fileInput = document.getElementById('bite-image_url');
+  const formData = new FormData();
+  formData.append('photo', fileInput.files[0]);
+    if (fileInput.files.length) {
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('file sent to server');
+          console.log(response);
+return response.json();         
+        } else {
+          console.log('file failed to send to server');
+        }
+      })
+      .then(data => {
+        console.log(data);
+         image_url = data.url;
+        console.log(image_url);
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
+    }
+
+};
+
 // TO DO: make sure querySelectors match handlebars docs
 document
   .querySelector('#new-bite')
@@ -59,3 +95,7 @@ document
 document
   .querySelector('.delete-list')
   .addEventListener('click', delButtonHandler);
+
+  document
+  .querySelector('#bite-image-form')
+  .addEventListener('submit', uploadHandler);
