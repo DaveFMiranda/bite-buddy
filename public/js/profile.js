@@ -93,8 +93,9 @@ document
   .addEventListener('click', newFormHandler);
 
 document
-  .querySelector('.delete-list')
-  .addEventListener('click', delButtonHandler);
+  .querySelectorAll('.delete-list').forEach((button) => {
+  button.addEventListener('click', delButtonHandler);
+  });
 
   document
   .querySelector('#bite-image-form')
