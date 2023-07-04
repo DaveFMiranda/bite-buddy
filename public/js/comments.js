@@ -51,4 +51,4 @@ if (commentDeleteButtons) {
   commentDeleteButtons.forEach((commentDeleteButton) => {
     commentDeleteButton.addEventListener('click', delButtonHandler2);
   });
-}
+};

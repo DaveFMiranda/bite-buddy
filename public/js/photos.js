@@ -19,4 +19,4 @@ if (document.querySelector('#photo-delete')) {
   document
     .querySelector('#photo-delete')
     .addEventListener('click', photoDeleteButton);
-}
+};
