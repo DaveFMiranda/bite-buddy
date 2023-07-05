@@ -3,35 +3,18 @@ let image_url;
 const newFormHandler = async (event) => {
   event.preventDefault();
 
+  // TO DO: update querySelectors to match names in the views. Also remove "needed funding"
   const headline = document.querySelector('#bite-headline').value.trim();
+  // const needed_funding = document.querySelector('#project-funding').value.trim();
   const content = document.querySelector('#bite-content').value.trim();
-
-  console.log(headline);
-  console.log(content);
+  //photos
+  // const image_url = document.querySelector('#bite-image_url').value.trim();
+console.log(headline);
+console.log(content);
+  // Make sure the fetch route is accurate and make sure the fields after body: below match the model you're trying to update
 
   if (headline && content) {
-    const fileInput = document.getElementById('bite-image_url');
-    const formData = new FormData();
-    formData.append('photo', fileInput.files[0]);
-    if (fileInput.files.length) {
-      const response = await fetch('/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('file sent to server');
-        image_url = data.url;
-
-        console.log(response);
-        return response.json();
-      } else {
-        console.log('file failed to send to server');
-      }
-    }
-
-    const biteResponse = await fetch(`/api/bites`, {
+    const response = await fetch(`/api/bites`, {
       method: 'POST',
       body: JSON.stringify({ headline, content, image_url }),
       headers: {
@@ -40,7 +23,7 @@ const newFormHandler = async (event) => {
     });
 
     // Update alert below
-    if (biteResponse.ok) {
+    if (response.ok) {
       document.location.replace('/profile');
     } else {
       alert('Failed to create bite entry');
@@ -72,23 +55,48 @@ const delButtonHandler = async (event) => {
 
 const uploadHandler = async (event) => {
   event.preventDefault();
+  const fileInput = document.getElementById('bite-image_url');
+  const formData = new FormData();
+  formData.append('photo', fileInput.files[0]);
+    if (fileInput.files.length) {
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('file sent to server');
+          console.log(response);
+return response.json();         
+        } else {
+          console.log('file failed to send to server');
+        }
+      })
+      .then(data => {
+        console.log(data);
+         image_url = data.url;
+        console.log(image_url);
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
+    }
+
 };
 
-function handleFileSelect() {
-  const fileInput = document.getElementById('bite-image_url');
-  const uploadButton = document.getElementById('upload-button');
-  console.log(uploadButton);
-  if (fileInput.files && fileInput.files.length) {
-    uploadButton.classList.remove('hidden');
-  }
-}
+// TO DO: make sure querySelectors match handlebars docs
+document
+  .querySelector('#new-bite')
+  .addEventListener('click', newFormHandler);
 
-document.querySelector('#new-bite').addEventListener('click', newFormHandler);
-
-document.querySelectorAll('.delete-list').forEach((button) => {
+document
+  .querySelectorAll('.delete-list').forEach((button) => {
   button.addEventListener('click', delButtonHandler);
-});
+  });
 
-// document
-// .querySelector('#bite-image-form')
-// .addEventListener('submit', uploadHandler);
+  document
+  .querySelector('#bite-image-form')
+  .addEventListener('submit', uploadHandler);

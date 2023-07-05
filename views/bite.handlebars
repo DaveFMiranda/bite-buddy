@@ -26,11 +26,16 @@
 
   <div class='flex justify-between items-stretch'>
     <div class='flex items-start mb-2 w-1/2'>
+   
+
+
       {{#if photos.length}}
         <div class='embla'>
           <div class='embla__viewport'>
             <div class='embla__container'>
               {{#each photos as |photo|}}
+                {{#if photo.image_url}}
+                
                 <div class='embla__slide'>
                   <img
                     class='mr-4'
@@ -38,6 +43,15 @@
                     alt='Bite Image'
                   />
                 </div>
+                {{else}}
+                <div class='embla__slide'>
+                  <img
+                    class='mr-4'
+                    src='https://res.cloudinary.com/dclljtiqc/image/upload/v1688526207/330px-No-Image-Placeholder.svg_otgsqr.png'
+                    alt='No image available'
+                  />
+                </div>
+                {{/if}}
               {{/each}}
             </div>
           </div>
