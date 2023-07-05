@@ -9,11 +9,23 @@ router.post('/', withAuth, async (req, res) => {
       user_id: req.session.user_id,
     });
 
-    const newPhoto = await Photo.create({
-      ...req.body,
-      bite_id: newBite.id,
-      user_id: req.session.user_id,
-    });
+const imageUrls = Array.isArray(req.body.image_url) ? req.body.image_url : [req.body.image_url];
+
+const newPhotos = await Promise.all(imageUrls.map(async (imageUrl) => {
+  return Photo.create({
+    image_url: imageUrl,
+    bite_id: newBite.id,
+    user_id: req.session.user_id,
+  });
+}));
+
+
+// OLD CODE BELOW FOR HANDLING A SINGLE URL
+    // const newPhoto = await Photo.create({
+    //   ...req.body,
+    //   bite_id: newBite.id,
+    //   user_id: req.session.user_id,
+    // });
 
     res.status(200).json(newBite);
   } catch (err) {

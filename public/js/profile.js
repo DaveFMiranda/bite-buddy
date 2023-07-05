@@ -1,4 +1,3 @@
-let image_url;
 
 const newFormHandler = async (event) => {
   event.preventDefault();
@@ -9,23 +8,34 @@ const newFormHandler = async (event) => {
 
   if (headline && content) {
     const fileInput = document.getElementById('bite-image_url');
-    const formData = new FormData();
-    formData.append('photo', fileInput.files[0]);
+    const image_url = [];
+
+
+    console.log(fileInput.files.length);
+    for (let i = 0; i<fileInput.files.length; i++){
+      const formData = new FormData();
+
+        formData.append('photo', fileInput.files[i]);
+
     if (fileInput.files.length) {
+      
       const response = await fetch('/upload', {
         method: 'POST',
         body: formData,
-      })
+      });
       if (response.ok) {
         const data = await response.json();
-        console.log('file sent to server');
-        image_url = data.url;
+        console.log('file ' + i + ' sent to server');
+        image_url.push(data.url);
+        console.log(image_url);
       } else {
-        console.log('file failed to send to server');
+        console.log('file ' + i + ' failed to send to server');
       }
-    };
+    }
 
-    
+    };
+    console.log(image_url);
+
     const biteResponse = await fetch(`/api/bites`, {
       method: 'POST',
       body: JSON.stringify({ headline, content, image_url }),
@@ -34,10 +44,6 @@ const newFormHandler = async (event) => {
       },
     });
 
-
-
-
-    // Update alert below
     if (biteResponse.ok) {
       document.location.replace('/profile');
     } else {
@@ -67,11 +73,8 @@ const delButtonHandler = async (event) => {
   }
 };
 
-
-
 document.querySelector('#new-bite').addEventListener('click', newFormHandler);
 
 document.querySelectorAll('.delete-list').forEach((button) => {
   button.addEventListener('click', delButtonHandler);
 });
-
