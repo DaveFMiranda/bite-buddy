@@ -45,7 +45,7 @@ const newFormHandler = async (event) => {
     });
 
     if (biteResponse.ok) {
-      document.location.replace('/profile');
+      document.location.reload();
     } else {
       alert('Failed to create bite entry');
     }
@@ -66,7 +66,7 @@ const delButtonHandler = async (event) => {
 
     // TO DO: update alert
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.reload();
     } else {
       alert('Failed to delete bite entry');
     }

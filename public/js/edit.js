@@ -38,7 +38,7 @@ const editContentSubmission = async (event) => {
     console.log(biteEdit);
 
     if (response.ok) {
-      document.location.replace(`/bites/${biteEdit}`);
+      document.location.reload();
     } else {
       alert('Failed to edit bite entry');
     }
@@ -97,7 +97,7 @@ const editCommentSubmission = async (event) => {
     console.log(commentEditID);
 
     if (response.ok) {
-      document.location.replace(`/bites/${biteEdit}`);
+      document.location.reload();
     } else {
       alert('Failed to update comment entry');
     }

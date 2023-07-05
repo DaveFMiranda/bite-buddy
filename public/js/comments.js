@@ -18,7 +18,7 @@ const newFormHandler = async (event) => {
     console.log(content, biteId);
     // Update alert below
     if (response.ok) {
-      document.location.replace(`/bites/${biteId}`);
+      document.location.reload();
       console.log(biteId);
     } else {
       alert('Failed to create comment');
@@ -36,7 +36,7 @@ const delButtonHandler2 = async (event) => {
   });
 
   if (response.ok) {
-    document.location.replace(`/bites/${biteId}`);
+    document.location.reload();
   } else {
     alert('Failed to delete comment');
   }
