@@ -5,9 +5,18 @@ const commentEditButtons = document.querySelectorAll('.edit-buttons');
 const editButtonHandler = async (event) => {
   event.preventDefault();
 
+  const oldTitle = document.querySelector('#bite-title');
+  const oldTitleText = oldTitle.textContent;
+  const newTitle = document.querySelector('#bite-title-update');
+  oldTitle.style.display = 'none';
+  newTitle.style.display = 'block';
+  newTitle.value = oldTitleText;
+  newTitle.focus();
+  console.log(newTitle);
+
   const oldContent = document.querySelector('#bite-content');
   const oldContentText = oldContent.textContent;
-  const newContent = document.querySelector('#bite-update');
+  const newContent = document.querySelector('#bite-content-update');
   oldContent.style.display = 'none';
   newContent.style.display = 'block';
   newContent.value = oldContentText;
@@ -21,15 +30,21 @@ const editButtonHandler = async (event) => {
 
 const editContentSubmission = async (event) => {
   event.preventDefault();
-  const newContent = document.querySelector('#bite-update').value.trim();
+  const newContent = document.querySelector('#bite-content-update').value.trim();
+  const newTitle = document.querySelector('#bite-title-update').value.trim();
   console.log(newContent);
+  console.log(newTitle);
 
-  if (newContent) {
+
+  if (newContent || newTitle) {
     let content = newContent;
+    let headline = newTitle;
     console.log(content);
+    console.log(headline);
+
     const response = await fetch(`/api/bites/${biteEdit}`, {
       method: 'POST',
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ headline, content }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -44,7 +59,7 @@ const editContentSubmission = async (event) => {
     }
   }
 };
-const editcommentButtonHandler = async (event) => {
+const editCommentButtonHandler = async (event) => {
   event.preventDefault();
   const commentEditId = event.target.getAttribute('data-id');
   // commentEditId is the number of the comment here
@@ -110,6 +125,6 @@ if (biteEditId) {
 
 if (commentEditButtons) {
   commentEditButtons.forEach((commentEditButton) => {
-    commentEditButton.addEventListener('click', editcommentButtonHandler);
+    commentEditButton.addEventListener('click', editCommentButtonHandler);
   });
 }
