@@ -1,15 +1,100 @@
 {{!TO DO: update headers, labels, IDs, names. REMEMBER! these need to be called by the event handlers in public/js, so the ids need to match}}
 
-<div class='row'>
-  <div class='col-auto'>
-    <h2>Welcome, {{name}}!</h2>
+<div class='flex justify-center'>
+  <div class='w-full md:w-2/3'>
+    <h2 class='text-center text-2xl font-bold'>Welcome, {{name}}!</h2>
   </div>
 </div>
-<img class='h-auto max-w-sm rounded-sm' src='/images/oldbug.png' />
-<div class='row mt-4'></div>
-<div class='col-md-6 new-bite-submission'>
+<div class='flex justify-center mt-4'>
+  <img class='h-auto max-w-sm rounded-sm' src='/images/oldbug.png' />
+</div>
+
+<div class='flex justify-center mt-4'>
+  <div class='w-full md:w-2/3 new-bite-submission'>
+    <h3 class='text-center text-2xl'>Submit a new bite:</h3>
+    <form class='form new-bite-form'>
+      <div class='form-group'>
+        <label for='bite-headline'>What do you want to ask about your bite?</label>
+        <input
+          class='form-input'
+          type='text'
+          id='bite-headline'
+          name='bite-headline'
+        />
+      </div>
+      {{! //add form group for image_url: }}
+      {{! <div class="form-group">
+        <label for="project-funding">needed funding ($):</label>
+        <input class="form-input" type="number" id="project-funding" name="project-funding" />
+      </div> }}
+      <div class='form-group'>
+        <label for='bite-content'>Please provide additional details about your
+          bite:</label>
+        <textarea
+          class='form-input'
+          id='bite-content'
+          name='bite-content'
+        ></textarea>
+      </div>
+      <div class='form-group'>
+        <label for='bite-image_url'>Please upload a picture of your bite:
+        </label>
+        <form enctype='multipart/form-data' id='bite-image-form'>
+          <input
+            type='file'
+            id='bite-image_url'
+            name='bite-image_url'
+            accept='image/*'
+            required
+          />
+          <button
+            type='submit'
+            class='bg-green-400 hover:bg-green-600 text-white px-4 py-2 rounded-md'
+          >Upload files</button>
+        </form>
+      </div>
+      <div class='flex justify-center'>
+        <div class='w-full md:w-2/3'>
+          <div class='form-group flex justify-center'>
+            <button
+              type='submit'
+              class='bg-green-400 hover:bg-green-600 text-white px-20 py-2 rounded-md'
+              id='new-bite'
+            >Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{{#if bites.length}}
+  <div class='flex justify-center mb-5 mt-5'>
+    <div class='w-full md:w-2/3 bite-list'>
+      <h3 class='text-center'>Bites you have submitted:</h3>
+
+      {{#each bites as |bite|}}
+        <div class='flex justify-between items-center mt-5'>
+          <div>
+            <a href='/bites/{{bite.id}}'>{{bite.headline}}</a>
+          </div>
+          <div>
+            <button
+              class='bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md'
+              data-id='{{bite.id}}'
+            >DELETE THIS BITE</button>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+{{/if}}
+
+<script src='./js/profile.js'></script>
+
+{{!-- <div class='col-md-6 new-bite-submission'>
   <h3>Submit a new bite:</h3>
-<form class='form new-bite-form'>
+  <form class='form new-bite-form'>
     <div class='form-group'>
       <label for='bite-headline'>What do you want to ask about your bite?</label>
       <input
@@ -20,7 +105,7 @@
       />
     </div>
     {{! //add for group for image_url: }}
-   
+
     {{! <div class="form-group">
         <label for="project-funding">needed funding ($):</label>
         <input class="form-input" type="number" id="project-funding" name="project-funding" />
@@ -34,32 +119,34 @@
         name='bite-content'
       ></textarea>
     </div>
-</form>
-     <div class='form-group'>
-      <label for='bite-image_url'>Please upload a picture of your bite:</label>
-      <form enctype='multipart/form-data' id='bite-image-form'>
+  </form>
+  <div class='form-group'>
+    <label for='bite-image_url'>Please upload a picture of your bite:</label>
+    <form enctype='multipart/form-data' id='bite-image-form'>
       <input
         type='file'
         id='bite-image_url'
         name='bite-image_url'
-        accept="image/"
+        accept='image/'
         required
       />
-      <button type='submit' class='bg-green-400 text-white px-4 py-2 rounded-md'>Upload files</button>
-      </form>
-    </div>
-    <div class='form-group'>
       <button
         type='submit'
         class='bg-green-400 text-white px-4 py-2 rounded-md'
-        id='new-bite'
-      >Submit</button>
-    </div>
+      >Upload files</button>
+    </form>
+  </div>
+  <div class='form-group'>
+    <button
+      type='submit'
+      class='bg-green-400 text-white px-4 py-2 rounded-md'
+      id='new-bite'
+    >Submit</button>
+  </div>
 </div>
 
-
-  {{#if bites.length}}
-  <div class="bite-list col-md-6">
+{{#if bites.length}}
+  <div class='bite-list col-md-6'>
     <h3>Bites you have submitted:</h3>
 
     {{#each bites as |bite|}}
@@ -76,4 +163,4 @@
   </div>
 {{/if}}
 
-<script src='./js/profile.js'></script>
+<script src='./js/profile.js'></script> --}}
