@@ -35,6 +35,7 @@ const editContentSubmission = async (event) => {
   console.log(newContent);
   console.log(newTitle);
 
+  
 
   if (newContent || newTitle) {
     let content = newContent;

@@ -10,7 +10,6 @@
   <div class='bite-list mb-2'>
     <div class='bite-buttons'>
       {{#isEqual sessionUser user_id}}
-        {{! IF session.user_id === user_id, THEN... }}
         <button
           class='btn btn-sm btn-danger'
           id='bite-edit'
@@ -21,6 +20,21 @@
           id='bite-delete'
           data-id='{{id}}'
         >DELETE THIS BITE</button>
+
+<div>
+        <form enctype='multipart/form-data' id='photo-add-form'>
+       <button type='click' class='btn btn-sm btn-danger' id="photo-add-button" data-id='{{id}}'>ADD A PHOTO</button>
+ <input
+        type='file'
+        id='photo-add-input'
+        accept='image/'
+        required
+        style="display: none"
+      />
+
+    </form>
+</div>
+
       {{/isEqual}}
     </div>
   </div>

@@ -2,6 +2,41 @@ const router = require('express').Router();
 const { Bite, Photo } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+
+// HERE'S SOME CODE TO ONLY TRIGGER NEW BITE CREATION IF THE REQUEST BODY DOESN'T HAVE A BITE_ID:
+
+// router.post('/', withAuth, async (req, res) => {
+//   try {
+//     const imageUrl = req.body.image_url;
+//     const biteId = req.body.bite_id;
+//     const userId = req.session.user_id;
+
+//     let newBite;
+//     if (biteId) {
+//       // Use existing Bite ID
+//       newBite = await Bite.findByPk(biteId);
+//     } else {
+//       // Create a new Bite
+//       newBite = await Bite.create({
+//         ...req.body,
+//         user_id: userId,
+//       });
+//     }
+
+//     // Create a new Photo
+//     const newPhoto = await Photo.create({
+//       image_url: imageUrl,
+//       bite_id: newBite.id,
+//       user_id: userId,
+//     });
+
+//     res.status(200).json({ newBite, newPhoto });
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// });
+
+
 router.post('/', withAuth, async (req, res) => {
   try {
     const newBite = await Bite.create({
@@ -14,7 +49,7 @@ const imageUrls = Array.isArray(req.body.image_url) ? req.body.image_url : [req.
 const newPhotos = await Promise.all(imageUrls.map(async (imageUrl) => {
   return Photo.create({
     image_url: imageUrl,
-    bite_id: newBite.id,
+    bite_id: newBite ? newBite.id : req.body.bite_id,
     user_id: req.session.user_id,
   });
 }));
