@@ -1,13 +1,22 @@
 const biteEditId = document.querySelector('#bite-edit');
-const biteEdit = biteEditId.getAttribute('data-id');
-console.log(biteEdit);
+const biteEdit = biteEditId?.getAttribute('data-id');
+const commentEditButtons = document.querySelectorAll('.edit-buttons');
 
 const editButtonHandler = async (event) => {
   event.preventDefault();
 
+  const oldTitle = document.querySelector('#bite-title');
+  const oldTitleText = oldTitle.textContent;
+  const newTitle = document.querySelector('#bite-title-update');
+  oldTitle.style.display = 'none';
+  newTitle.style.display = 'block';
+  newTitle.value = oldTitleText;
+  newTitle.focus();
+  console.log(newTitle);
+
   const oldContent = document.querySelector('#bite-content');
   const oldContentText = oldContent.textContent;
-  const newContent = document.querySelector('#bite-update');
+  const newContent = document.querySelector('#bite-content-update');
   oldContent.style.display = 'none';
   newContent.style.display = 'block';
   newContent.value = oldContentText;
@@ -21,15 +30,21 @@ const editButtonHandler = async (event) => {
 
 const editContentSubmission = async (event) => {
   event.preventDefault();
-  const newContent = document.querySelector('#bite-update').value.trim();
+  const newContent = document.querySelector('#bite-content-update').value.trim();
+  const newTitle = document.querySelector('#bite-title-update').value.trim();
   console.log(newContent);
+  console.log(newTitle);
 
-  if (newContent) {
+
+  if (newContent || newTitle) {
     let content = newContent;
+    let headline = newTitle;
     console.log(content);
+    console.log(headline);
+
     const response = await fetch(`/api/bites/${biteEdit}`, {
       method: 'POST',
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ headline, content }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -38,13 +53,13 @@ const editContentSubmission = async (event) => {
     console.log(biteEdit);
 
     if (response.ok) {
-      document.location.replace(`/bites/${biteEdit}`);
+      document.location.reload();
     } else {
       alert('Failed to edit bite entry');
     }
   }
 };
-const editcommentButtonHandler = async (event) => {
+const editCommentButtonHandler = async (event) => {
   event.preventDefault();
   const commentEditId = event.target.getAttribute('data-id');
   // commentEditId is the number of the comment here
@@ -97,20 +112,19 @@ const editCommentSubmission = async (event) => {
     console.log(commentEditID);
 
     if (response.ok) {
-      document.location.replace(`/bites/${biteEdit}`);
+      document.location.reload();
     } else {
       alert('Failed to update comment entry');
     }
   }
 };
 
-document
-  .querySelector('#bite-edit')
-  .addEventListener('click', editButtonHandler);
+if (biteEditId) {
+  biteEditId.addEventListener('click', editButtonHandler);
+}
 
-const commentEditButtons = document.querySelectorAll('.edit-buttons');
 if (commentEditButtons) {
   commentEditButtons.forEach((commentEditButton) => {
-    commentEditButton.addEventListener('click', editcommentButtonHandler);
+    commentEditButton.addEventListener('click', editCommentButtonHandler);
   });
 }

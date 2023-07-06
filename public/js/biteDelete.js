@@ -1,6 +1,5 @@
 const biteDeleteId = document.querySelector('#bite-delete');
-const biteDelete = biteDeleteId.getAttribute('data-id');
-console.log(biteDelete);
+const biteDelete = biteDeleteId?.getAttribute('data-id');
 
 const delButtonHandler = async (event) => {
   event.preventDefault();
@@ -9,8 +8,6 @@ const delButtonHandler = async (event) => {
     method: 'DELETE',
   });
 
-  console.log(biteDelete);
-
   if (response.ok) {
     document.location.replace(`/profile`);
   } else {
@@ -18,6 +15,6 @@ const delButtonHandler = async (event) => {
   }
 };
 
-document
-  .querySelector('#bite-delete')
-  .addEventListener('click', delButtonHandler);
+if (biteDeleteId) {
+  biteDeleteId.addEventListener('click', delButtonHandler);
+}

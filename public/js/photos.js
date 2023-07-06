@@ -8,7 +8,7 @@ const photoDeleteButton = async (event) => {
   });
 
   if (response.ok) {
-    document.location.replace(`/bites/${biteDelete}`);
+    document.location.reload();
   } else {
     alert('Failed to delete photo');
   }
