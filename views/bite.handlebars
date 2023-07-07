@@ -75,7 +75,40 @@
                   id='ebite-content'
                   data-id='{{comment.id}}'
                 >{{comment.content}}</p>
+                  <input
+                  type='text'
+                  class='edit-input hidden'
+                  id='ebite-update'
+                  data-id='{{comment.id}}'
+                />
+                
               </div>
+               <p>Created by
+                  {{comment.user.name}}
+                  on
+                  {{format_date comment.date_created}}</p>
+
+                <div class='comment-buttons flex justify-center'>
+                  <div class='edit-buttons'>
+                    <button
+                      class='btn btn-sm btn-danger'
+                      id='ebite-edit'
+                      data-id='{{comment.id}}'
+                    >EDIT COMMENT</button>
+                    <button
+                      class='btn btn-sm btn-danger hidden'
+                      id='eedit-submit'
+                      data-id='{{comment.id}}'
+                    >Submit edit</button>
+                  </div>
+                  <div class='delete-buttons'>
+                    <button
+                      class='btn btn-sm btn-danger'
+                      id='comment-delete'
+                      data-id='{{comment.id}}'
+                    >DELETE THIS COMMENT</button>
+                  </div>
+                  </div>
             {{/each}}
           {{/if}}
         </div>
@@ -144,26 +177,6 @@
                   on
                   {{format_date comment.date_created}}</p>
 
-                <div class='comment-buttons flex justify-center'>
-                  <div class='edit-buttons'>
-                    <button
-                      class='btn btn-sm btn-danger'
-                      id='ebite-edit'
-                      data-id='{{comment.id}}'
-                    >EDIT COMMENT</button>
-                    <button
-                      class='btn btn-sm btn-danger hidden'
-                      id='edit-submit'
-                      data-id='{{comment.id}}'
-                    >Submit edit</button>
-                  </div>
-                  <div class='delete-buttons'>
-                    <button
-                      class='btn btn-sm btn-danger'
-                      id='comment-delete'
-                      data-id='{{comment.id}}'
-                    >DELETE THIS COMMENT</button>
-                  </div>
                 </div>
               </div>
 
