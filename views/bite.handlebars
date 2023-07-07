@@ -9,6 +9,7 @@
 
   <div class='bite-list mb-2'>
     <div class='bite-buttons'>
+
       {{#isEqual sessionUser user_id}}
         <button
           class='btn btn-sm btn-danger'
@@ -68,8 +69,11 @@
           <h3 class='text-center text-xl'>Comments</h3>
         </div>
         <div class='overflow-y-auto h-96'>
+          
           {{#if comments.length}}
+
             {{#each comments as |comment|}}
+
               <div class='comment-card'>
                 <p
                   id='ebite-content'
@@ -83,10 +87,14 @@
                 />
                 
               </div>
+
                <p>Created by
                   {{comment.user.name}}
                   on
                   {{format_date comment.date_created}}</p>
+
+
+      {{#isEqual @root.sessionUser comment.user_id}}
 
                 <div class='comment-buttons flex justify-center'>
                   <div class='edit-buttons'>
@@ -109,6 +117,10 @@
                     >DELETE THIS COMMENT</button>
                   </div>
                   </div>
+      {{/isEqual}}
+
+
+
             {{/each}}
           {{/if}}
         </div>
