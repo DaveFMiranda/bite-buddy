@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class='flex justify-between items-stretch'>
+  <div class='flex justify-between items-stretch w-full'>
     <div class='flex items-start mb-2 w-1/2'>
 
       {{#if photos.length}}
@@ -63,24 +63,53 @@
         <div></div>
       {{/if}}
     </div>
-    <div class='overflow-y-auto h-96 w-1/2'>
+    <div class='w-1/2'>
       {{!-- <h2 class='text-2xl'>{{headline}}</h2>
       <p id='bite-content'>{{content}}</p>
       <input type='text' class='edit-input hidden' id='bite-update' />
       <button class='btn btn-sm btn-danger hidden' id='edit-submit'>Submit Edit</button> --}}
       {{!-- <p>Created by {{user.name}} on {{format_date date_created}}</p> --}}
-      <div class=''>
-        <h3 class='text-center text-xl'>Comments</h3>
-        {{#if comments.length}}
-          {{#each comments as |comment|}}
-            <div class='comment-card'>
-              <p
-                id='ebite-content'
-                data-id='{{comment.id}}'
-              >{{comment.content}}</p>
+      <div class='h-full'>
+        <div class='mb-1'>
+          <h3 class='text-center text-xl'>Comments</h3>
+        </div>
+        <div class='overflow-y-auto h-96'>
+          {{#if comments.length}}
+            {{#each comments as |comment|}}
+              <div class='comment-card'>
+                <p
+                  id='ebite-content'
+                  data-id='{{comment.id}}'
+                >{{comment.content}}</p>
+              </div>
+            {{/each}}
+          {{/if}}
+        </div>
+        <div>
+          {{#if logged_in}}
+            <div class='mt-4 flex mb-2 ml-5'>
+              <h3 class='inline-block mr-2 mt-2'>Comment:</h3>
+              <form class='form flex'>
+                <div class='form-group'>
+                  <input
+                    class='form-input'
+                    type='text'
+                    id='comment-content'
+                    name='comment-content'
+                  />
+                </div>
+                <div class='form-group'>
+                  <button
+                    type='submit'
+                    class='btn btn-primary ml-2'
+                    id='comment-submit'
+                    data-id='{{id}}'
+                  >Submit</button>
+                </div>
+              </form>
             </div>
-          {{/each}}
-        {{/if}}
+          {{/if}}
+        </div>
       </div>
 
     </div>
@@ -152,7 +181,7 @@
   </div>
 </div>
 
-{{#if logged_in}}
+{{!-- {{#if logged_in}}
   <div class='mt-4 flex items-start mb-2 w-1/2'>
     <div>
       <h3>Add a comment:</h3>
@@ -176,7 +205,7 @@
       </form>
     </div>
   </div>
-{{/if}}
+{{/if}} --}}
 
 {{! Added carousel support for images }}
 <script src='https://unpkg.com/embla-carousel/embla-carousel.umd.js'></script>
