@@ -7,58 +7,47 @@ const Photo = require('./Photo');
 
 User.hasMany(Bite, {
   foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
 User.hasMany(Comment, {
   foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
 User.hasMany(Photo, {
   foreignKey: 'user_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
 Bite.belongsTo(User, {
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
 });
 
 Bite.hasMany(Comment, {
   foreignKey: 'bite_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
 Bite.hasMany(Photo, {
   foreignKey: 'bite_id',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
 Comment.belongsTo(Bite, {
-  foreignKey: 'bite_id'
+  foreignKey: 'bite_id',
 });
 
 Comment.belongsTo(User, {
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
 });
 
-
-
 Photo.belongsTo(Bite, {
-  foreignKey: 'bite_id'
+  foreignKey: 'bite_id',
 });
 
 Photo.belongsTo(User, {
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
 });
-
-
-
-
-
-
-
-
-
 
 module.exports = { User, Bite, Comment, Photo };

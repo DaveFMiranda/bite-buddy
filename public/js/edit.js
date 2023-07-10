@@ -12,7 +12,6 @@ const editButtonHandler = async (event) => {
   newTitle.style.display = 'block';
   newTitle.value = oldTitleText;
   newTitle.focus();
-  console.log(newTitle);
 
   const oldContent = document.querySelector('#bite-content');
   const oldContentText = oldContent.textContent;
@@ -21,7 +20,6 @@ const editButtonHandler = async (event) => {
   newContent.style.display = 'block';
   newContent.value = oldContentText;
   newContent.focus();
-  console.log(newContent);
 
   const submitEditButton = document.querySelector('#edit-submit');
   submitEditButton.style.display = 'block';
@@ -30,17 +28,14 @@ const editButtonHandler = async (event) => {
 
 const editContentSubmission = async (event) => {
   event.preventDefault();
-  const newContent = document.querySelector('#bite-content-update').value.trim();
+  const newContent = document
+    .querySelector('#bite-content-update')
+    .value.trim();
   const newTitle = document.querySelector('#bite-title-update').value.trim();
-  console.log(newContent);
-  console.log(newTitle);
-
 
   if (newContent || newTitle) {
     let content = newContent;
     let headline = newTitle;
-    console.log(content);
-    console.log(headline);
 
     const response = await fetch(`/api/bites/${biteEdit}`, {
       method: 'POST',
@@ -49,8 +44,6 @@ const editContentSubmission = async (event) => {
         'Content-Type': 'application/json',
       },
     });
-
-    console.log(biteEdit);
 
     if (response.ok) {
       document.location.reload();
@@ -62,8 +55,6 @@ const editContentSubmission = async (event) => {
 const editCommentButtonHandler = async (event) => {
   event.preventDefault();
   const commentEditId = event.target.getAttribute('data-id');
-  // commentEditId is the number of the comment here
-  console.log(commentEditId);
 
   const oldContent = document.querySelector(
     `[data-id="${commentEditId}"]#ebite-content`
@@ -76,30 +67,24 @@ const editCommentButtonHandler = async (event) => {
   newContent.style.display = 'block';
   newContent.value = oldContentText;
   newContent.focus();
-  console.log(newContent);
 
   const submitEditButton = document.querySelector(
     `[data-id="${commentEditId}"]#eedit-submit`
   );
   submitEditButton.style.display = 'block';
-  // Add data-id to editsubmit button here.
   submitEditButton.addEventListener('click', editCommentSubmission);
 };
 
 const editCommentSubmission = async (event) => {
   event.preventDefault();
-
   const button = event.target;
   const commentEditID = button.getAttribute('data-id');
-
   const newContent = document
     .querySelector(`[data-id="${commentEditID}"]#ebite-update`)
     .value.trim();
-  console.log(newContent);
 
   if (newContent) {
     let content = newContent;
-    console.log(content);
 
     const response = await fetch(`/api/comments/${commentEditID}`, {
       method: 'POST',
@@ -108,8 +93,6 @@ const editCommentSubmission = async (event) => {
         'Content-Type': 'application/json',
       },
     });
-
-    console.log(commentEditID);
 
     if (response.ok) {
       document.location.reload();
