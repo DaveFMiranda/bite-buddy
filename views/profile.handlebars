@@ -15,15 +15,16 @@
   <div class='w-full md:w-1/2'>
     <div class='flex justify-center mt-12'>
       <div class='w-full md:w-2/3 new-bite-submission'>
-        <h3 class='text-left text-2xl'>Submit a new bite:</h3>
+        <h3 class='text-left text-2xl font-medium'>Submit a new bite:</h3>
         <form class='form new-bite-form'>
           <div class='form-group'>
-            <label for='bite-headline'>What do you want to ask about your bite?</label>
+            <label for='bite-headline'>Please enter a title:</label>
             <input
               class='form-input'
               type='text'
               id='bite-headline'
               name='bite-headline'
+              placeholder:'text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm sm:text-sm" placeholder="What insect bit me?" type="text" name="search"'
             />
           </div>
           {{! //add form group for image_url: }}
@@ -32,13 +33,13 @@
         <input class="form-input" type="number" id="project-funding" name="project-funding" />
       </div> }}
           <div class='form-group'>
-            <label for='bite-content'>Please provide additional details about
-              your bite:</label>
-            <textarea
+            <label for='bite-content'>List any symptoms you are experiencing:</label>
+            <input
               class='form-input'
               id='bite-content'
               name='bite-content'
-            ></textarea>
+              placeholder:'text-italic text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm sm:text-sm" placeholder="swelling, discomfort, itching..." type="text" name="search"'
+              />
           </div>
           <div class='form-group'>
             <label for='bite-image_url'>Please upload pictures of your bite:</label>
@@ -66,7 +67,7 @@
                   type='submit'
                   class='bg-green-400 hover:bg-green-600 text-white px-20 py-2 rounded-md'
                   id='new-bite'
-                >Submit Bite</button>
+                >Submit</button>
               </div>
             </div>
           </div>
@@ -75,9 +76,9 @@
     </div>
 
     {{#if bites.length}}
-      <div class='flex justify-center mb-5 mt-5'>
+      <div class='flex justify-center mb-5 mt-10'>
         <div class='w-full md:w-2/3 bite-list'>
-          <h3 class='text-left text-2xl'>Bites you have submitted:</h3>
+          <h3 class='text-left text-2xl font-medium'>Bites you have submitted:</h3>
 
           {{#each bites as |bite|}}
             <div class='flex justify-between items-center mt-5'>
@@ -88,7 +89,7 @@
                 <button
                   class='bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md'
                   data-id='{{bite.id}}'
-                >DELETE THIS BITE</button>
+                >DELETE</button>
               </div>
             </div>
           {{/each}}
