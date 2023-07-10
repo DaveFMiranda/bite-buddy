@@ -1,11 +1,14 @@
-<div class='flex flex-col items-center'>
-  <h2 class='text-3xl font-bold' id="bite-title">{{headline}}</h2>
-    <input type='text' class='edit-input hidden' id='bite-title-update' />
-  <h3 class='text-xl' id='bite-content'>{{content}}</h3>
+<div class='flex flex-col items-left'>
+  <h2 class='text-3xl font-bold' id='bite-title'>{{headline}}</h2>
+  <input type='text' class='edit-input hidden' id='bite-title-update' />
+  <h3 class='text-xl text-left pl-20 mt-4' id='bite-content'>{{content}}</h3>
   <input type='text' class='edit-input hidden' id='bite-content-update' />
   <button class='btn btn-sm btn-danger hidden' id='edit-submit'>Submit Edit</button>
 
-  <p>Created by {{user.name}} on {{format_date date_created}}</p>
+  {{!-- <p class='text-right text-sm'>Created by
+    {{user.name}}
+    on
+    {{format_date date_created}}</p> --}}
 
   <div class='bite-list mb-2'>
     <div class='bite-buttons'>
@@ -66,10 +69,10 @@
     <div class='overflow-y-auto h-96 w-1/2'>
       <div class='h-full'>
         <div class='mb-1'>
-          <h3 class='text-center text-xl'>Comments</h3>
+          <h3 class='text-left text-2xl pl-6'>Comments</h3>
         </div>
         <div class='overflow-y-auto h-96'>
-          
+
           {{#if comments.length}}
 
             {{#each comments as |comment|}}
@@ -79,22 +82,21 @@
                   id='ebite-content'
                   data-id='{{comment.id}}'
                 >{{comment.content}}</p>
-                  <input
+                <input
                   type='text'
                   class='edit-input hidden'
                   id='ebite-update'
                   data-id='{{comment.id}}'
                 />
-                
+
               </div>
 
-               <p>Created by
-                  {{comment.user.name}}
-                  on
-                  {{format_date comment.date_created}}</p>
+              <p class='text-right text-sm'>Created by
+                {{comment.user.name}}
+                on
+                {{format_date comment.date_created}}</p>
 
-
-      {{#isEqual @root.sessionUser comment.user_id}}
+              {{#isEqual @root.sessionUser comment.user_id}}
 
                 <div class='comment-buttons flex justify-center'>
                   <div class='edit-buttons'>
@@ -116,10 +118,8 @@
                       data-id='{{comment.id}}'
                     >DELETE THIS COMMENT</button>
                   </div>
-                  </div>
-      {{/isEqual}}
-
-
+                </div>
+              {{/isEqual}}
 
             {{/each}}
           {{/if}}
@@ -199,7 +199,10 @@
   {{/if}} --}}
   </div>
 </div>
-
+<p class='text-right text-sm'>Created by
+  {{user.name}}
+  on
+  {{format_date date_created}}</p>
 {{!-- {{#if logged_in}}
   <div class='mt-4 flex items-start mb-2 w-1/2'>
     <div>
