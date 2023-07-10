@@ -1,12 +1,9 @@
-// Make sure models, constants, and stuff you're including match the relationships you set up among the models
-
 const router = require('express').Router();
 const { Bite, User, Comment, Photo } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all bites and JOIN with user and comment data
     const biteData = await Bite.findAll({
       include: [
         {
@@ -14,7 +11,6 @@ router.get('/', async (req, res) => {
           attributes: ['name'],
         },
         { model: Comment, attributes: ['content'] },
-        // adding Photo model as well for image thumbnail
         {
           model: Photo,
           attributes: ['image_url'],
@@ -22,10 +18,8 @@ router.get('/', async (req, res) => {
       ],
     });
 
-    // Serialize data so the template can read it
     const bites = biteData.map((bite) => bite.get({ plain: true }));
 
-    // Pass serialized data and session flag into template
     res.render('homepage', {
       bites,
       logged_in: req.session.logged_in,
@@ -35,7 +29,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// CHRIS: added the photo table data we need into this GET command so that when the user goes to bites/id, the GET sends the photo data associated with that bite.
 router.get('/bites/:id', async (req, res) => {
   try {
     const biteData = await Bite.findByPk(req.params.id, {
@@ -64,8 +57,6 @@ router.get('/bites/:id', async (req, res) => {
     });
 
     const bite = biteData.get({ plain: true });
-    console.log(bite);
-    console.log(req.session.user_id);
 
     res.render('bite', {
       ...bite,
@@ -77,10 +68,8 @@ router.get('/bites/:id', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {
-    // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
       include: [{ model: Bite, include: [Comment] }],

@@ -1,15 +1,24 @@
-<div class='flex flex-col items-center'>
-  <h2 class='text-3xl font-bold' id="bite-title">{{headline}}</h2>
-    <input type='text' class='edit-input hidden' id='bite-title-update' />
-  <h3 class='text-xl' id='bite-content'>{{content}}</h3>
-  <input type='text' class='edit-input hidden' id='bite-content-update' />
+<div class='ml-2 mt-6 mb-4'>
+  <h2 class='text-3xl font-bold' id='bite-title'>{{headline}}</h2>
+  </div>
+
+
+  <input type='text' class='edit-input hidden' id='bite-title-update' />
+
+    <div
+      class='text-xl text-left h-1/5 object-contain'
+      id='bite-content'
+    >{{content}}</div>  <input type='text' class='edit-input hidden' id='bite-content-update' />
   <button class='btn btn-sm btn-danger hidden' id='edit-submit'>Submit Edit</button>
 
-  <p>Created by {{user.name}} on {{format_date date_created}}</p>
-
+ <p class='text-right text-sm'>Created by
+      {{user.name}}
+      on
+      {{format_date date_created}}</p>
   <div class='bite-list mb-2'>
     <div class='bite-buttons'>
 
+      {{! Only allows bite edits and deletion if author is logged in }}
       {{#isEqual sessionUser user_id}}
         <button
           class='btn btn-sm btn-danger'
@@ -34,7 +43,6 @@
             <div class='embla__container'>
               {{#each photos as |photo|}}
                 {{#if photo.image_url}}
-
                   <div class='embla__slide'>
                     <img
                       class='mr-4'
@@ -63,39 +71,29 @@
         <div></div>
       {{/if}}
     </div>
-    <div class='overflow-y-auto h-96 w-1/2'>
-      <div class='h-full'>
-        <div class='mb-1'>
-          <h3 class='text-center text-xl'>Comments</h3>
-        </div>
+     <div class='col-span-1'>
+
+    <h3 class='text-left text-xl font-bold pl-6 mb-2'>Comments</h3>
         <div class='overflow-y-auto h-96'>
-          
           {{#if comments.length}}
-
             {{#each comments as |comment|}}
-
               <div class='comment-card'>
                 <p
                   id='ebite-content'
                   data-id='{{comment.id}}'
                 >{{comment.content}}</p>
-                  <input
+                <input
                   type='text'
                   class='edit-input hidden'
                   id='ebite-update'
                   data-id='{{comment.id}}'
                 />
-                
-              </div>
-
-               <p>Created by
-                  {{comment.user.name}}
-                  on
-                  {{format_date comment.date_created}}</p>
-
-
-      {{#isEqual @root.sessionUser comment.user_id}}
-
+              <div class='text-right text-xs font-thin'>Created by
+                {{comment.user.name}}
+                on
+                {{format_date comment.date_created}}</div>
+                </div>
+              {{#isEqual @root.sessionUser comment.user_id}}
                 <div class='comment-buttons flex justify-center'>
                   <div class='edit-buttons'>
                     <button
@@ -116,11 +114,8 @@
                       data-id='{{comment.id}}'
                     >DELETE THIS COMMENT</button>
                   </div>
-                  </div>
-      {{/isEqual}}
-
-
-
+                </div>
+              {{/isEqual}}
             {{/each}}
           {{/if}}
         </div>
@@ -150,84 +145,13 @@
           {{/if}}
         </div>
       </div>
-
     </div>
-
-    {{!-- {{#if logged_in}}
-            <div>
-              <button
-                class='btn btn-sm btn-danger'
-                id='photo-delete'
-                data-id='{{photo.id}}'
-              >DELETE THIS PHOTO</button>
-            </div>
-          {{/if}}
-        </div>
-
-        {{#if comments.length}}
-          
-            <h3>Comments</h3>
-            {{#each comments as |comment|}}
-              <div>
-                <p
-                  id='ebite-content'
-                  data-id='{{comment.id}}'
-                >{{comment.content}}</p>
-                <input
-                  type='text'
-                  class='edit-input hidden'
-                  id='ebite-update'
-                  data-id='{{comment.id}}'
-                />
-                <button
-                  class='btn btn-sm btn-danger hidden'
-                  id='edit-submit'
-                  data-id='{{comment.id}}'
-                >Submit edit</button>
-                <p>Created by
-                  {{comment.user.name}}
-                  on
-                  {{format_date comment.date_created}}</p>
-
-                </div>
-              </div>
-
-          </div>
-        {{/if}}
-      </div>
-    {{/each}}
-  {{/if}} --}}
   </div>
 </div>
 
-{{!-- {{#if logged_in}}
-  <div class='mt-4 flex items-start mb-2 w-1/2'>
-    <div>
-      <h3>Add a comment:</h3>
-      <form class='form' id='new-comment-form'>
-        <div class='form-group'>
-          <input
-            class='form-input'
-            type='text'
-            id='comment-content'
-            name='comment-content'
-          />
-        </div>
-        <div class='form-group'>
-          <button
-            type='submit'
-            class='btn btn-primary'
-            id='comment-submit'
-            data-id='{{id}}'
-          >Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-{{/if}} --}}
-
 {{! Added carousel support for images }}
 <script src='https://unpkg.com/embla-carousel/embla-carousel.umd.js'></script>
+
 {{! prettier-ignore }}
 <script type='text/javascript'>
   const rootNode = document.querySelector('.embla'); 

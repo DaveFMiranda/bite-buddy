@@ -15,11 +15,8 @@ const newFormHandler = async (event) => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(content, biteId);
-    // Update alert below
     if (response.ok) {
       document.location.reload();
-      console.log(biteId);
     } else {
       alert('Failed to create comment');
     }
@@ -28,9 +25,7 @@ const newFormHandler = async (event) => {
 
 const delButtonHandler2 = async (event) => {
   event.preventDefault();
-
   const commentId = event.target.getAttribute('data-id');
-  console.log(commentId);
   const response = await fetch(`/api/comments/${commentId}`, {
     method: 'DELETE',
   });
