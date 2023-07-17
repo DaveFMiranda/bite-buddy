@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3001;
 app.use(
   fileUpload({
     useTempFiles: true,
-    tempFileDir: '/temp',
+    tempFileDir: require('os').tmpdir(),
   })
 );
 
